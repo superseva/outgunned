@@ -1,0 +1,22 @@
+{
+  "OUTGUNNED.AbilityStr": "Strength",
+  "OUTGUNNED.AbilityCon": "Constitution",
+  "OUTGUNNED.AbilityDex": "Dexterity",
+  "OUTGUNNED.AbilityInt": "Intelligence",
+  "OUTGUNNED.AbilityWis": "Wisdom",
+  "OUTGUNNED.AbilityCha": "Charisma",
+
+  "OUTGUNNED.AbilityStrAbbr": "str",
+  "OUTGUNNED.AbilityConAbbr": "con",
+  "OUTGUNNED.AbilityDexAbbr": "dex",
+  "OUTGUNNED.AbilityIntAbbr": "int",
+  "OUTGUNNED.AbilityWisAbbr": "wis",
+  "OUTGUNNED.AbilityChaAbbr": "cha",
+
+  "OUTGUNNED.EffectCreate": "Create Effect",
+  "OUTGUNNED.EffectToggle": "Toggle Effect",
+  "OUTGUNNED.EffectEdit": "Edit Effect",
+  "OUTGUNNED.EffectDelete": "Delete Effect",
+
+  "OUTGUNNED.Add": "Add"
+}
