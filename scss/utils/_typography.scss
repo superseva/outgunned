@@ -1,2 +1,11 @@
 $font-primary: 'Roboto', sans-serif;
 $font-secondary: 'Roboto', sans-serif;
+$font-thunder: 'Thunder Nova', sans-serif;
+
+@font-face {
+    font-family: "Thunder Nova";
+    src: url("../fonts/thundernova.ttf");
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}

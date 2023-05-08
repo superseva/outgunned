@@ -10,3 +10,46 @@
     cursor: pointer;
   }
 }
+
+.outgunned-chat-message{
+  h2{
+    border: none;
+    font-family: $font-thunder;
+  }
+}
+
+.dice-icon{
+  cursor: pointer;
+  position: relative;
+  max-width: 28px;
+  min-width: 28px;
+  line-height: 28px;
+  float: left;
+  margin-right: 1px;
+  background-repeat: no-repeat;
+  background-size: 28px 28px;
+  background-color: red;
+  font-size: 16px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  text-align: center;
+  margin: 0.1em;
+  &.d1{
+    background-image: url(../assets/dice/white-1.webp);
+  }
+  &.d2{
+    background-image: url(../assets/dice/white-2.webp);
+  }
+  &.d3{
+    background-image: url(../assets/dice/white-3.webp);
+  }
+  &.d4{
+    background-image: url(../assets/dice/white-4.webp);
+  }
+  &.d5{
+    background-image: url(../assets/dice/white-5.webp);
+  }
+  &.d6{
+    background-image: url(../assets/dice/white-6.webp);
+  }
+}

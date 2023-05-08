@@ -3,50 +3,53 @@
     "types": ["character", "npc"],
     "templates": {
       "base": {
-        "health": {
-          "value": 10,
+        "role":"",
+        "trope":"",
+        "job":"",
+        "age":"",
+        "flaw":"",
+        "catchphrase":"",
+        "grit": {
+          "value": 0,
           "min": 0,
-          "max": 10
+          "max": 12,
+          "badSpots":[],
+          "hotSpots":[]
         },
-        "power": {
-          "value": 5,
+        "adrenaline": {
+          "value": 0,
           "min": 0,
-          "max": 5
+          "max": 6
         },
+        "achievements":"",
+        "scars":"",
+        "bonds":"",        
         "biography": ""
       }
     },
     "character": {
       "templates": ["base"],
       "attributes": {
-        "level": {
-          "value": 1
+        "brawn": {
+          "value": 10
+        },
+        "nerves": {
+          "value": 10
+        },
+        "smooth": {
+          "value": 10
+        },
+        "focus": {
+          "value": 10
+        },
+        "crime": {
+          "value": 10
         }
       },
-      "abilities": {
-        "str": {
-          "value": 10
-        },
-        "dex": {
-          "value": 10
-        },
-        "con": {
-          "value": 10
-        },
-        "int": {
-          "value": 10
-        },
-        "wis": {
-          "value": 10
-        },
-        "cha": {
-          "value": 10
-        }
-      }
+      "mainAttribute":""
     },
     "npc": {
-      "templates": ["base"],
-      "cr": 0
+      "templates": ["base"]
     }
   },
   "Item": {
@@ -54,20 +57,25 @@
     "templates": {
       "base": {
         "description": ""
+      },
+      "physical":{
+        "quantity": 1,
+        "weight": 0
       }
     },
     "item": {
-      "templates": ["base"],
-      "quantity": 1,
-      "weight": 0,
+      "templates": ["base", "physical"],
       "formula": "d20 + @str.mod + ceil(@lvl / 2)"
     },
-    "feature": {
+    "skill": {
+      "templates": ["base"],
+      "value":0
+    },
+    "feat": {
       "templates": ["base"]
     },
-    "spell": {
-      "templates": ["base"],
-      "spellLevel": 1
+    "condition": {
+      "templates": ["base"]
     }
   }
 }

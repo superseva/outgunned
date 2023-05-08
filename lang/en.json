@@ -18,5 +18,10 @@
   "OUTGUNNED.EffectEdit": "Edit Effect",
   "OUTGUNNED.EffectDelete": "Delete Effect",
 
-  "OUTGUNNED.Add": "Add"
+  "OUTGUNNED.Add": "Add",
+  "OUTGUNNED.UI":{
+    "REROLL":"Reroll",
+    "FREEREROLL":"Free Reroll",
+    "ALLIN":"All In"
+  }
 }

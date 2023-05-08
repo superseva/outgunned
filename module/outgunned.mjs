@@ -7,6 +7,11 @@ import { OutgunnedItemSheet } from "./sheets/item-sheet.mjs";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { OUTGUNNED } from "./helpers/config.mjs";
+// Roller
+import { OutgunnedRoller } from "./roller/roller.js";
+import {OutgunnedRollerDialog} from './roller/roller-dialog.js';
+//Dice
+import OutgunnedDie from './roller/outgunned-die.js'
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -19,11 +24,14 @@ Hooks.once('init', async function() {
   game.outgunned = {
     OutgunnedActor,
     OutgunnedItem,
-    rollItemMacro
+    rollItemMacro,
+    OutgunnedRoller,
+    OutgunnedRollerDialog
   };
 
   // Add custom constants for configuration.
   CONFIG.OUTGUNNED = OUTGUNNED;
+  CONFIG.Dice.terms["o"] = OutgunnedDie;
 
   /**
    * Set an initiative formula for the system
@@ -135,3 +143,48 @@ function rollItemMacro(itemUuid) {
     item.roll();
   });
 }
+
+/* CHAT LISTENERS */
+Hooks.on('renderChatMessage', (message, html, data) => {
+  let rrlBtn = html.find('.reroll-button');
+  if (rrlBtn.length > 0) {
+    rrlBtn[0].setAttribute('data-messageId', message.id);
+    rrlBtn.click((el) => {
+      let outgunnedFlags = message.flags.outgunnedFlags;
+      console.warn(outgunnedFlags);
+      OutgunnedRoller.rollDice({total:outgunnedFlags.toReroll, rollType: "reroll", carryOverDice: outgunnedFlags.carryOverDice})
+    })
+  }
+}) 
+
+
+/* DICE SO NICE */
+Hooks.once("diceSoNiceReady", (dice3d) => {
+  dice3d.addSystem({ id: "outgunned", name: "Outgunned" }, true);
+
+  dice3d.addColorset(
+      {
+          name: "outgunned",
+          description: "Outgunned Dice",
+          category: "Colors",
+          foreground: "#b1241a",
+          background: "#b1241a",
+          outline: "#b1241a",
+          texture: "none",
+      }
+  );
+
+  dice3d.addDicePreset({
+      type: "do",
+      labels: [
+          "systems/outgunned/assets/dice/white-1.webp",
+          "systems/outgunned/assets/dice/white-2.webp",
+          "systems/outgunned/assets/dice/white-3.webp",
+          "systems/outgunned/assets/dice/white-4.webp",
+          "systems/outgunned/assets/dice/white-5.webp",
+          "systems/outgunned/assets/dice/white-6.webp",
+      ],
+      system: "outgunned",
+      colorset: "outgunned"
+  });
+});
