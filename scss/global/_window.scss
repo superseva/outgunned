@@ -16,6 +16,12 @@
     border: none;
     font-family: $font-thunder;
   }
+  .dice-group{
+    &.dice-selected{
+      border: 2px solid white;
+      background-color: grey;
+    }
+  }
 }
 
 .dice-icon{

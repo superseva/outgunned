@@ -3,7 +3,7 @@
         <h2><em>{{rollName}}</em></h2>
         <div style="display:flex; flex-direction:column">
             {{#each groupedResults}}
-            <div style="display:flex; flex-direction:row">
+            <div style="display:flex; flex-direction:row;" class="dice-group" data-dice-type="{{getDicegroupType this}}">
                 {{#each this}}
                     <span class="dice-icon d{{this}}">&nbsp;</span>      
                 {{/each}}
@@ -15,12 +15,25 @@
             <li>{{key}} : {{value}}</li>
             {{/each}}
         </ul> -->
-        {{#if isSuccesses}}
-        <div class="flexrow">
-            <button class="reroll-button">{{localize "OUTGUNNED.UI.REROLL"}}</button>
-            <button class="free-reroll-button">{{localize "OUTGUNNED.UI.FREEREROLL"}}</button>
-            <button class="all-in-button">{{localize "OUTGUNNED.UI.ALLIN"}}</button>
+
+        {{#unless isSuccess}}
+            <p>No Success</p>
+        {{/unless}}
+
+        <div class="flexrow">            
+            <!-- <p>REROLL: {{showReroll}}, FREE: {{showFree}}, DISCARD: {{showDiscard}}, ALLIN: {{showAllIn}} </p> -->
+            {{#if showReroll}}
+                <button class="reroll-button">{{localize "OUTGUNNED.UI.REROLL"}}</button>
+            {{/if}}
+            {{#if showFree}}
+                <button class="free-reroll-button">{{localize "OUTGUNNED.UI.FREEREROLL"}}</button>
+            {{/if}}
+            {{#if showDiscard}}
+                <button class="discard-button">{{localize "OUTGUNNED.UI.DISCARD"}}</button>
+            {{/if}}
+            {{#if showAllIn}}
+                <button class="all-in-button">{{localize "OUTGUNNED.UI.ALLIN"}}</button>
+            {{/if}}
         </div>
-        {{/if}}
     </div>
 </div>

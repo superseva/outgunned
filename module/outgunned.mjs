@@ -11,7 +11,10 @@ import { OUTGUNNED } from "./helpers/config.mjs";
 import { OutgunnedRoller } from "./roller/roller.js";
 import {OutgunnedRollerDialog} from './roller/roller-dialog.js';
 //Dice
-import OutgunnedDie from './roller/outgunned-die.js'
+import OutgunnedDie from './roller/outgunned-die.js';
+// HANDLEBARS
+import { registerHandlebarsHelpers } from "./helpers/handlebars.mjs"
+registerHandlebarsHelpers();
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -146,15 +149,67 @@ function rollItemMacro(itemUuid) {
 
 /* CHAT LISTENERS */
 Hooks.on('renderChatMessage', (message, html, data) => {
+  //! REROLL Button
   let rrlBtn = html.find('.reroll-button');
   if (rrlBtn.length > 0) {
     rrlBtn[0].setAttribute('data-messageId', message.id);
     rrlBtn.click((el) => {
       let outgunnedFlags = message.flags.outgunnedFlags;
       console.warn(outgunnedFlags);
-      OutgunnedRoller.rollDice({total:outgunnedFlags.toReroll, rollType: "reroll", carryOverDice: outgunnedFlags.carryOverDice})
+      OutgunnedRoller.rollDice({total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_REROLL, carryOverDice: outgunnedFlags.carryOverDice})
     })
   }
+
+  //! FREE reroll Button
+  let frrlBtn = html.find('.free-reroll-button');
+  if (frrlBtn.length > 0) {
+    frrlBtn[0].setAttribute('data-messageId', message.id);
+    frrlBtn.click((el) => {
+      let outgunnedFlags = message.flags.outgunnedFlags;
+      console.warn(outgunnedFlags);
+      OutgunnedRoller.rollDice({total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_FREE, carryOverDice: outgunnedFlags.carryOverDice})
+    })
+  }
+
+  //! ALL IN Button  
+  let allBtn = html.find('.all-in-button');
+  if (allBtn.length > 0) {
+    allBtn[0].setAttribute('data-messageId', message.id);
+    allBtn.click((el) => {
+      let outgunnedFlags = message.flags.outgunnedFlags;
+      console.warn(outgunnedFlags);
+      OutgunnedRoller.rollDice({total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_ALL, carryOverDice: outgunnedFlags.carryOverDice})
+    })
+  }
+
+
+  //! DISCARD Button
+  let discardBtn = html.find('.discard-button');
+  if (discardBtn.length > 0) {
+    discardBtn[0].setAttribute('data-messageId', message.id);
+    discardBtn.click((el) => {
+      let outgunnedFlags = message.flags.outgunnedFlags;
+      let selectedDiceForReroll = html.find('.dice-selected');
+      let rerollIndex = [];
+      for (let d of selectedDiceForReroll) {
+          rerollIndex.push($(d).data('dice-type'));
+      }
+      if (!rerollIndex.length) {
+          ui.notifications.notify('Select Dice you want to Reroll');
+          return;
+      }
+      OutgunnedRoller.discard({diceGroup: rerollIndex[0], total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_DISCARD, carryOverDice: outgunnedFlags.carryOverDice, results: outgunnedFlags.results})
+    })
+  }
+
+  // Select Dice group to discard
+  html.find('.dice-group').click((el) => {
+    if ($(el.currentTarget).hasClass('dice-selected')) {
+        $(el.currentTarget).removeClass('dice-selected');
+    } else {
+        $(el.currentTarget).addClass('dice-selected')
+    }
+  });
 }) 
 
 

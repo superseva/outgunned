@@ -23,6 +23,11 @@
   font-family: "Thunder Nova", sans-serif;
 }
 
+.outgunned-chat-message .dice-group.dice-selected {
+  border: 2px solid white;
+  background-color: grey;
+}
+
 .dice-icon {
   cursor: pointer;
   position: relative;
