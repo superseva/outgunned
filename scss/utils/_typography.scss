@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@200;400;600&display=swap');
+
 $font-primary: 'Roboto', sans-serif;
 $font-secondary: 'Roboto', sans-serif;
+$font-barlow:'barlow', sans-serif;
 $font-thunder: 'Thunder Nova', sans-serif;
 
 @font-face {
@@ -8,4 +11,10 @@ $font-thunder: 'Thunder Nova', sans-serif;
     font-weight: normal;
     font-style: normal;
     font-display: block;
+}
+
+
+
+.font-thunder{
+    font-family: $font-thunder;
 }

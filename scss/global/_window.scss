@@ -1,6 +1,12 @@
 .window-app {
-  font-family: $font-primary;
+  font-family: $font-primary;  
+  .window-content{    
+    background: unset;
+    background-color: #f5f1e6;
+  }
 }
+
+
 
 .rollable {
   &:hover,
@@ -17,10 +23,32 @@
     font-family: $font-thunder;
   }
   .dice-group{
+    display:flex;
+    flex-direction:row;
+    align-items: center;
     &.dice-selected{
-      border: 2px solid white;
-      background-color: grey;
+      //border: 2px solid white;
+      //background-color: grey;
+      background: repeating-linear-gradient(
+        315deg,
+        #e7d7d7,
+        #e7d7d7 5px,
+        $c-red 5px,
+        $c-red 10px
+      );
+      opacity: 0.3;
     }
+    .success-label{
+      font-family: $font-thunder;
+      font-style: italic;
+      color: $c-red;
+    }
+  }
+  .no-successes{
+    font-family: $font-thunder;
+    font-size: 1.2em;
+    font-style: italic;
+    color: $c-red;
   }
 }
 

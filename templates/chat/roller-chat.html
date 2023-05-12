@@ -3,10 +3,11 @@
         <h2><em>{{rollName}}</em></h2>
         <div style="display:flex; flex-direction:column">
             {{#each groupedResults}}
-            <div style="display:flex; flex-direction:row;" class="dice-group" data-dice-type="{{getDicegroupType this}}">
+            <div class="dice-group" data-dice-type="{{getDicegroupType this}}" data-group-length="{{this.length}}">
                 {{#each this}}
                     <span class="dice-icon d{{this}}">&nbsp;</span>      
                 {{/each}}
+                <span class="success-label">&nbsp;{{getSuccessLevelLabel this.length}}</span>
             </div>
             {{/each}}
         </div>     
@@ -17,7 +18,21 @@
         </ul> -->
 
         {{#unless isSuccess}}
-            <p>No Success</p>
+            {{#ifCond rollType "==" "initial"}}
+                <p class="no-successes">No successes</p>
+            {{/ifCond}}
+            {{#ifCond rollType "==" "reroll"}}
+                <p class="no-successes">No new successes after RE-ROLL</p>
+            {{/ifCond}}
+            {{#ifCond rollType "==" "freeReroll"}}
+                <p class="no-successes">No additional successes after FREE RE-ROLL</p>
+            {{/ifCond}}
+            {{#ifCond rollType "==" "discard"}}
+                <p class="no-successes">No successes after DISCARD</p>
+            {{/ifCond}}
+            {{#ifCond rollType "==" "allIn"}}
+                <p class="no-successes">No new successes after ALL IN. Ignore all previous successes</p>
+            {{/ifCond}}
         {{/unless}}
 
         <div class="flexrow">            

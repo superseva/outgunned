@@ -11,8 +11,8 @@ export class OutgunnedActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["outgunned", "sheet", "actor"],
       template: "systems/outgunned/templates/actor/actor-sheet.html",
-      width: 600,
-      height: 600,
+      width: 950,
+      height: 750,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
     });
   }
@@ -68,9 +68,9 @@ export class OutgunnedActorSheet extends ActorSheet {
    */
   _prepareCharacterData(context) {
     // Handle ability scores.
-    for (let [k, v] of Object.entries(context.system.abilities)) {
-      v.label = game.i18n.localize(CONFIG.OUTGUNNED.abilities[k]) ?? k;
-    }
+    // for (let [k, v] of Object.entries(context.system.abilities)) {
+    //   v.label = game.i18n.localize(CONFIG.OUTGUNNED.abilities[k]) ?? k;
+    // }
   }
 
   /**
@@ -139,6 +139,15 @@ export class OutgunnedActorSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
 
+    // Attribute Click
+    html.find('.attribute').click(this._onAttributeClick.bind(this))
+
+    // Skill Click
+    html.find('.skill').click(this._onSkillClick.bind(this))
+
+    // Roll Button Click
+    html.find('.roll-button').click(this._onRollButtonClick.bind(this))
+
     // Add Inventory Item
     html.find('.item-create').click(this._onItemCreate.bind(this));
 
@@ -165,6 +174,85 @@ export class OutgunnedActorSheet extends ActorSheet {
         li.addEventListener("dragstart", handler, false);
       });
     }
+  }
+
+  async _onAttributeClick(event){
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+    const _key = dataset.key    
+
+    if(!event.shiftKey && !event.altKey){
+      $(element).toggleClass('selected')
+      $(element).siblings().removeClass('selected');
+      return;
+    }
+
+    let newValue = 0
+    let _update = {}
+    // Increase by 1
+    if (event.shiftKey) {
+      newValue = Math.min(parseInt(dataset.value)+1, 3)      
+      _update[_key] = newValue;  
+    }
+    // Decrease by 1
+    if (event.altKey) {
+      newValue = Math.max(parseInt(dataset.value)-1, 1)      
+      _update[_key] = newValue;  
+    }
+    await this.actor.update(_update)
+  }
+
+  async _onSkillClick(event){
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+    const _key = dataset.key;    
+
+    if(!event.shiftKey && !event.altKey){
+      $('.skill').removeClass('selected')
+      $(element).toggleClass('selected')      
+      return;
+    }
+
+    let newValue = 0
+    let _update = {}
+    // Increase by 1
+    if (event.shiftKey) {
+      newValue = Math.min(parseInt(dataset.value)+1, 3)      
+      _update[_key] = newValue;  
+    }
+    // Decrease by 1
+    if (event.altKey) {
+      newValue = Math.max(parseInt(dataset.value)-1, 1)      
+      _update[_key] = newValue;  
+    }
+    await this.actor.update(_update)
+  }
+
+  async _onRollButtonClick(event){
+    event.preventDefault();
+    const element = event.currentTarget;
+    const _attrs = $(element).parent().parent().find('.attributes')
+    const elAttr = $(_attrs).find('.attribute.selected')
+    const attrValue = $(elAttr).data('value')
+
+    const _skls = $(element).parent().parent().find('.skills')
+    const elSkill = $(_skls).find('.skill.selected')
+    const skillValue = $(elSkill).data('value')
+    
+    const rollName = $(elAttr).data('attribute') + " / " + $(elSkill).data('skill')
+    const _total = parseInt(attrValue) + parseInt(skillValue);
+
+    const modifierEl = $(element).parent().find('.modifier')
+    let _modifier = $(modifierEl).val() == ""? 0: $(modifierEl).val()
+    _modifier = parseInt(_modifier)
+
+    // reset modifier
+    $(modifierEl).val(0)
+
+    game.outgunned.OutgunnedRoller.rollDice({ rollName: rollName, total: _total, modifier: _modifier, rollType: game.outgunned.OutgunnedRoller.ROLL_TYPE_INITIAL });
+
   }
 
   /**

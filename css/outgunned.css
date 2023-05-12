@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@200;400;600&display=swap");
 @font-face {
   font-family: "Thunder Nova";
   src: url("../fonts/thundernova.ttf");
@@ -7,9 +8,18 @@
   font-display: block;
 }
 
+.font-thunder {
+  font-family: "Thunder Nova", sans-serif;
+}
+
 /* Global styles */
 .window-app {
   font-family: "Roboto", sans-serif;
+}
+
+.window-app .window-content {
+  background: unset;
+  background-color: #f5f1e6;
 }
 
 .rollable:hover, .rollable:focus {
@@ -23,9 +33,28 @@
   font-family: "Thunder Nova", sans-serif;
 }
 
+.outgunned-chat-message .dice-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .outgunned-chat-message .dice-group.dice-selected {
-  border: 2px solid white;
-  background-color: grey;
+  background: repeating-linear-gradient(315deg, #e7d7d7, #e7d7d7 5px, #b1251a 5px, #b1251a 10px);
+  opacity: 0.3;
+}
+
+.outgunned-chat-message .dice-group .success-label {
+  font-family: "Thunder Nova", sans-serif;
+  font-style: italic;
+  color: #b1251a;
+}
+
+.outgunned-chat-message .no-successes {
+  font-family: "Thunder Nova", sans-serif;
+  font-size: 1.2em;
+  font-style: italic;
+  color: #b1251a;
 }
 
 .dice-icon {
@@ -328,6 +357,33 @@
 
 .outgunned .resource-label {
   font-weight: bold;
+}
+
+.outgunned .attributes .attribute {
+  font-family: "barlow", sans-serif;
+  font-weight: 600;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.2em;
+  color: #b1251a;
+}
+
+.outgunned .attributes .attribute.selected {
+  background-color: #b1251a;
+  color: white;
+}
+
+.outgunned .skills .skill {
+  font-family: "barlow", sans-serif;
+  font-weight: 600;
+  font-size: 1em;
+  text-transform: uppercase;
+  margin-bottom: 0.2em;
+}
+
+.outgunned .skills .skill.selected {
+  background-color: #b1251a;
+  color: white;
 }
 
 .outgunned .items-header {

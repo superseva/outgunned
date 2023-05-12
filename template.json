@@ -1,81 +1,167 @@
 {
   "Actor": {
-    "types": ["character", "npc"],
+    "types": [
+      "character",
+      "npc"
+    ],
     "templates": {
       "base": {
-        "role":"",
-        "trope":"",
-        "job":"",
-        "age":"",
-        "flaw":"",
-        "catchphrase":"",
+        "role": "",
+        "trope": "",
+        "job": "",
+        "age": "",
+        "flaw": "",
+        "catchphrase": "",
         "grit": {
           "value": 0,
           "min": 0,
           "max": 12,
-          "badSpots":[],
-          "hotSpots":[]
+          "badSpots": [],
+          "hotSpots": []
         },
         "adrenaline": {
           "value": 0,
           "min": 0,
           "max": 6
         },
-        "achievements":"",
-        "scars":"",
-        "bonds":"",        
+        "achievements": "",
+        "scars": "",
+        "bonds": "",
         "biography": ""
       }
     },
     "character": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "attributes": {
         "brawn": {
-          "value": 10
+          "value": 2,
+          "skills": {
+            "endure": {
+              "value": 1
+            },
+            "fight": {
+              "value": 1
+            },
+            "force": {
+              "value": 1
+            },
+            "stunt": {
+              "value": 1
+            }
+          }
         },
         "nerves": {
-          "value": 10
+          "value": 2,
+          "skills": {
+            "cool": {
+              "value": 1
+            },
+            "drive": {
+              "value": 1
+            },
+            "shoot": {
+              "value": 1
+            },
+            "survival": {
+              "value": 1
+            }
+          }
         },
         "smooth": {
-          "value": 10
+          "value": 2,
+          "skills": {
+            "flirt": {
+              "value": 1
+            },
+            "leadership": {
+              "value": 1
+            },
+            "speech": {
+              "value": 1
+            },
+            "style": {
+              "value": 1
+            }
+          }
         },
         "focus": {
-          "value": 10
+          "value": 2,
+          "skills": {
+            "detect": {
+              "value": 1
+            },
+            "fix": {
+              "value": 1
+            },
+            "heal": {
+              "value": 1
+            },
+            "know": {
+              "value": 1
+            }
+          }
         },
         "crime": {
-          "value": 10
+          "value": 2,
+          "skills": {
+            "awareness": {
+              "value": 1
+            },
+            "dexterity": {
+              "value": 1
+            },
+            "stealth": {
+              "value": 1
+            },
+            "streetwise": {
+              "value": 1
+            }
+          }
         }
       },
-      "mainAttribute":""
+      "mainAttribute": ""
     },
     "npc": {
-      "templates": ["base"]
+      "templates": [
+        "base"
+      ]
     }
   },
   "Item": {
-    "types": ["item", "feature", "spell"],
+    "types": [
+      "item",
+      "skill",
+      "feat",
+      "weapon",
+      "gear"
+    ],
     "templates": {
       "base": {
         "description": ""
       },
-      "physical":{
+      "physical": {
         "quantity": 1,
         "weight": 0
       }
     },
     "item": {
-      "templates": ["base", "physical"],
-      "formula": "d20 + @str.mod + ceil(@lvl / 2)"
+      "templates": [
+        "base",
+        "physical"
+      ]
     },
     "skill": {
-      "templates": ["base"],
-      "value":0
+      "templates": [
+        "base"
+      ],
+      "value": 1
     },
     "feat": {
-      "templates": ["base"]
-    },
-    "condition": {
-      "templates": ["base"]
+      "templates": [
+        "base"
+      ]
     }
   }
 }

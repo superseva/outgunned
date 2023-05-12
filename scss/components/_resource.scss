@@ -1,3 +1,33 @@
 .resource-label {
   font-weight: bold;
 }
+
+.attributes{
+  .attribute{
+    font-family: $font-barlow;
+    font-weight: 600;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.2em;
+    color: $c-red;
+    &.selected{
+      background-color: $c-red;
+      color: white;
+    }
+    
+  }
+}
+
+.skills{
+  .skill{
+    font-family: $font-barlow;
+    font-weight: 600;
+    font-size: 1em;
+    text-transform: uppercase;
+    margin-bottom: 0.2em;
+    &.selected{
+      background-color: $c-red;
+      color: white;
+    }
+  }
+}
