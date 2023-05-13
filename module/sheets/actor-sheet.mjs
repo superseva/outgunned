@@ -242,16 +242,23 @@ export class OutgunnedActorSheet extends ActorSheet {
     const skillValue = $(elSkill).data('value')
     
     const rollName = $(elAttr).data('attribute') + " / " + $(elSkill).data('skill')
-    const _total = parseInt(attrValue) + parseInt(skillValue);
+    let _total = parseInt(attrValue) + parseInt(skillValue);
 
-    const modifierEl = $(element).parent().find('.modifier')
+    const modifierEl = $(element).parent().siblings().find('.modifier')
     let _modifier = $(modifierEl).val() == ""? 0: $(modifierEl).val()
-    _modifier = parseInt(_modifier)
+    _modifier = parseInt(_modifier);
+
+    const gambleEl = $(element).parent().siblings().find('.gamble-checkbox');
+    const isGamble = $(gambleEl).is(':checked');
+    if (isGamble) {
+      _total+=1;
+      $(gambleEl).prop("checked", false)
+    }
 
     // reset modifier
     $(modifierEl).val(0)
 
-    game.outgunned.OutgunnedRoller.rollDice({ rollName: rollName, total: _total, modifier: _modifier, rollType: game.outgunned.OutgunnedRoller.ROLL_TYPE_INITIAL });
+    game.outgunned.OutgunnedRoller.rollDice({ rollName: rollName, total: _total, modifier: _modifier, rollType: game.outgunned.OutgunnedRoller.ROLL_TYPE_INITIAL, isGamble: isGamble });
 
   }
 

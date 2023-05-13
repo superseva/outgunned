@@ -28,9 +28,15 @@
   cursor: pointer;
 }
 
-.outgunned-chat-message h2 {
+.outgunned-chat-message .roll-name {
   border: none;
   font-family: "Thunder Nova", sans-serif;
+  color: #b1251a;
+}
+
+.outgunned-chat-message .gamble {
+  font-family: "barlow", sans-serif;
+  color: #b1251a;
 }
 
 .outgunned-chat-message .dice-group {
@@ -355,6 +361,11 @@
   padding: 0 8px;
 }
 
+.outgunned .short-num-2 {
+  max-width: 2em;
+  text-align: center;
+}
+
 .outgunned .resource-label {
   font-weight: bold;
 }
@@ -378,12 +389,16 @@
   font-weight: 600;
   font-size: 1em;
   text-transform: uppercase;
-  margin-bottom: 0.2em;
+  margin-bottom: 0.1em;
 }
 
 .outgunned .skills .skill.selected {
   background-color: #b1251a;
   color: white;
+}
+
+.outgunned .modifiers-group {
+  margin: 1em;
 }
 
 .outgunned .items-header {

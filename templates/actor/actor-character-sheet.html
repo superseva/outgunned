@@ -97,23 +97,37 @@
             </div>
             {{/each}} -->
           </div>
+          <div class="flexrow modifiers-group">
+            <span>
+              <label>Modifier</label>
+              <input type="number" class="modifier short-num-2" value="0">
+            </span>
+            <span>
+              <label>Gamble ?</label>
+              <input type="checkbox" class="gamble-checkbox">
+            </span>            
+          </div>
           <div>
-            <label>Modifier</label>
-            <input type="number" class="modifier" value="0">
             <Button class="roll-button">ROLL</Button>
           </div>
         </aside>
 
-        {{!-- For the main features list, span the right two columns --}}
-        <section class="main grid-span-4" style="background-color: white;">
+        {{!-- For the main features list, span second columns --}}
+        <section class="middle-column grid-span-4" style="background-color: white;">
           {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}}
           <!-- {{> "systems/outgunned/templates/actor/parts/actor-features.html"}} -->
           <label>GRIT</label>
-          <div>1/1/1/1/1/1/1/1/1/1/1/1</div>
+          <div class="grid grid-12col">
+            {{#times system.grit.max}}
+            <div class="grid-marker">O</div>
+            {{/times}}
+          </div>
+          <p>BAD: SUFFER A CONDITION</p>
+          <p>HOT: GAIN 2 ADRENALINE</p>
         </section>
 
-        {{!-- For the third columns --}}
-        <section class="main grid-span-5" style="background-color: white;">
+        {{!-- For the third column --}}
+        <section class="right-column grid-span-5" style="background-color: white;">
           {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}}
           <!-- {{> "systems/outgunned/templates/actor/parts/actor-features.html"}} -->
         </section>

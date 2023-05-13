@@ -1,6 +1,7 @@
 <div class="outgunned-chat-message">
     <div class="content">
-        <h2><em>{{rollName}}</em></h2>
+        <h2 class="roll-name"><em>{{rollName}}</em></h2>
+        {{#if isGamble}}<p class="gamble">Gamble Roll</p>{{/if}}
         <div style="display:flex; flex-direction:column">
             {{#each groupedResults}}
             <div class="dice-group" data-dice-type="{{getDicegroupType this}}" data-group-length="{{this.length}}">

@@ -156,7 +156,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
     rrlBtn.click((el) => {
       let outgunnedFlags = message.flags.outgunnedFlags;
       console.warn(outgunnedFlags);
-      OutgunnedRoller.rollDice({rollName: outgunnedFlags.rollName,total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_REROLL, carryOverDice: outgunnedFlags.carryOverDice})
+      OutgunnedRoller.rollDice({rollName: outgunnedFlags.rollName,total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_REROLL, isGamble:outgunnedFlags.isGamble, carryOverDice: outgunnedFlags.carryOverDice})
     })
   }
 
@@ -167,7 +167,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
     frrlBtn.click((el) => {
       let outgunnedFlags = message.flags.outgunnedFlags;
       console.warn(outgunnedFlags);
-      OutgunnedRoller.rollDice({rollName: outgunnedFlags.rollName, total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_FREE, carryOverDice: outgunnedFlags.carryOverDice})
+      OutgunnedRoller.rollDice({rollName: outgunnedFlags.rollName, total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_FREE, isGamble:outgunnedFlags.isGamble, carryOverDice: outgunnedFlags.carryOverDice})
     })
   }
 
@@ -178,7 +178,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
     allBtn.click((el) => {
       let outgunnedFlags = message.flags.outgunnedFlags;
       console.warn(outgunnedFlags);
-      OutgunnedRoller.rollDice({rollName: outgunnedFlags.rollName, total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_ALL, carryOverDice: outgunnedFlags.carryOverDice})
+      OutgunnedRoller.rollDice({rollName: outgunnedFlags.rollName, total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_ALL, isGamble:outgunnedFlags.isGamble, carryOverDice: outgunnedFlags.carryOverDice})
     })
   }
 
@@ -198,7 +198,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
           ui.notifications.notify('Select Dice you want to Reroll');
           return;
       }
-      OutgunnedRoller.discard({rollName: outgunnedFlags.rollName, diceGroup: rerollIndex[0], total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_DISCARD, carryOverDice: outgunnedFlags.carryOverDice, results: outgunnedFlags.results})
+      OutgunnedRoller.discard({rollName: outgunnedFlags.rollName, diceGroup: rerollIndex[0], total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_DISCARD, isGamble:outgunnedFlags.isGamble, carryOverDice: outgunnedFlags.carryOverDice, results: outgunnedFlags.results})
     })
   }
 

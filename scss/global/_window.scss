@@ -6,8 +6,6 @@
   }
 }
 
-
-
 .rollable {
   &:hover,
   &:focus {
@@ -18,9 +16,14 @@
 }
 
 .outgunned-chat-message{
-  h2{
+  .roll-name{
     border: none;
     font-family: $font-thunder;
+    color: $c-red;
+  }
+  .gamble{
+    font-family: $font-barlow;
+    color: $c-red;
   }
   .dice-group{
     display:flex;
