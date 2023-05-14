@@ -66,11 +66,35 @@ export class OutgunnedActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareCharacterData(context) {
-    // Handle ability scores.
-    // for (let [k, v] of Object.entries(context.system.abilities)) {
-    //   v.label = game.i18n.localize(CONFIG.OUTGUNNED.abilities[k]) ?? k;
-    // }
+  _prepareCharacterData(context) {    
+    const badGrits = context.system.grit.badSpots.split(",").map(function(item) {
+      return item.trim();
+    });
+    const hotGrits = context.system.grit.hotSpots.split(",").map(function(item) {
+      return item.trim();
+    });
+    let gritBar = [];
+    for(let i=0; i<context.system.grit.max; i++){
+      let grit = {
+        index: i,
+        value: parseInt(i)+1,
+        img:this._getGritImage(parseInt(i)+1, hotGrits, badGrits, context.system.grit.value)
+      }
+      gritBar.push(grit)
+    }
+    context.gritBar = gritBar;
+  }
+
+  _getGritImage(value, hots, bads, currentGrit){    
+    let numberMarker = value<=currentGrit? 1:0
+    let img = `systems/outgunned/assets/ui/grit-basic-${numberMarker}.webp`;
+    if(hots.includes(value.toString())){      
+      img = `systems/outgunned/assets/ui/grit-hot-${numberMarker}.webp`;
+    }
+    if(bads.includes(value.toString())){
+      img = `systems/outgunned/assets/ui/grit-bad-${numberMarker}.webp`;
+    }   
+    return img;
   }
 
   /**
@@ -147,6 +171,11 @@ export class OutgunnedActorSheet extends ActorSheet {
 
     // Roll Button Click
     html.find('.roll-button').click(this._onRollButtonClick.bind(this))
+
+    // Grit Marker Click
+    html.find('.grit-marker').click(this._onGritClick.bind(this))
+    // Zero Crit
+    html.find('.zero-grit').click(this._zeroGrit.bind(this))
 
     // Add Inventory Item
     html.find('.item-create').click(this._onItemCreate.bind(this));
@@ -260,6 +289,19 @@ export class OutgunnedActorSheet extends ActorSheet {
 
     game.outgunned.OutgunnedRoller.rollDice({ rollName: rollName, total: _total, modifier: _modifier, rollType: game.outgunned.OutgunnedRoller.ROLL_TYPE_INITIAL, isGamble: isGamble });
 
+  }
+
+  async _onGritClick(event){
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+    let currentGrit = parseInt(dataset.gritvalue);
+    await this.actor.update({"system.grit.value":currentGrit})
+  }
+
+  async _zeroGrit(event){
+    event.preventDefault();
+    await this.actor.update({"system.grit.value":0})
   }
 
   /**

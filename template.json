@@ -16,8 +16,8 @@
           "value": 0,
           "min": 0,
           "max": 12,
-          "badSpots": [],
-          "hotSpots": []
+          "badSpots": "8",
+          "hotSpots": "12"
         },
         "adrenaline": {
           "value": 0,

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@200;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@200;400;600;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@200;400;600;900&display=swap");
 @font-face {
   font-family: "Thunder Nova";
   src: url("../fonts/thundernova.ttf");
@@ -14,7 +15,7 @@
 
 /* Global styles */
 .window-app {
-  font-family: "Roboto", sans-serif;
+  font-family: "barlow", sans-serif;
 }
 
 .window-app .window-content {
@@ -307,7 +308,7 @@
 }
 
 .outgunned .item-form {
-  font-family: "Roboto", sans-serif;
+  font-family: "barlow", sans-serif;
 }
 
 .outgunned .sheet-header {
@@ -364,6 +365,47 @@
 .outgunned .short-num-2 {
   max-width: 2em;
   text-align: center;
+}
+
+.outgunned .grit-marker {
+  cursor: pointer;
+}
+
+.outgunned .grit-marker .grit-image {
+  border: unset;
+}
+
+.outgunned .grit-marker img {
+  border: null;
+}
+
+.outgunned .outgunned-editor .hidden {
+  display: none;
+}
+
+.outgunned .grit-tip {
+  font-size: 0.75em;
+  font-family: "Jost", sans-serif;
+  font-weight: 600;
+}
+
+.outgunned .grit-tip p {
+  margin: 0;
+}
+
+.outgunned .grit-tip .tip-bad {
+  color: #6f6e6e;
+}
+
+.outgunned .grit-tip .tip-hot {
+  color: #b1251a;
+}
+
+.outgunned .og-title h2 {
+  border: none;
+  color: #b1251a;
+  font-family: "Jost", sans-serif;
+  font-weight: 600;
 }
 
 .outgunned .resource-label {

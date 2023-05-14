@@ -116,14 +116,43 @@
         <section class="middle-column grid-span-4" style="background-color: white;">
           {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}}
           <!-- {{> "systems/outgunned/templates/actor/parts/actor-features.html"}} -->
-          <label>GRIT</label>
-          <div class="grid grid-12col">
-            {{#times system.grit.max}}
-            <div class="grid-marker">O</div>
-            {{/times}}
+          <div class="'grit">
+            <div class="flexrow flex-between grit-title">
+              <div class="og-title"><h2>GRIT</h2></div>
+              <div style="display:flex; justify-content: end;">
+                <p class="zero-grit">Reset Grit To 0</p>
+              </div>           
+            </div>            
+            <div class="outgunned-editor hidden">
+              <div>
+                <label for="system.grit.value">Max Grit</label>
+                <input type="string" name="system.grit.max" value="{{system.grit.max}}">
+              </div>
+              <div>
+                <label for="system.grit.value">Current Grit</label>
+                <input type="string" name="system.grit.value" value="{{system.grit.value}}">
+              </div>
+              <div>
+                <label for="system.grit.hotSpots">HOT Grits</label>
+                <input type="string" name="system.grit.hotSpots" value="{{system.grit.hotSpots}}">
+              </div>
+              <div>
+                <label for="system.grit.badSpots">Bad Grits</label>
+                <input type="string" placeholder="2, 8, 11 " name="system.grit.badSpots" value="{{system.grit.badSpots}}">
+              </div>
+            </div>            
+            <div class="grit-bar grid grid-12col" style="gap:0.1em">
+              {{#each gritBar as |grit index|}}
+              <div class="grit-marker" data-gritvalue="{{grit.value}}">
+                <img src="{{grit.img}}" class="grit-image">
+              </div>
+              {{/each}}
+            </div>
+            <div class="grit-tip">
+              <p class="tip-bad">BAD: SUFFER A CONDITION</p>
+              <p class="tip-hot">HOT: GAIN 2 ADRENALINE</p>
+            </divc>           
           </div>
-          <p>BAD: SUFFER A CONDITION</p>
-          <p>HOT: GAIN 2 ADRENALINE</p>
         </section>
 
         {{!-- For the third column --}}

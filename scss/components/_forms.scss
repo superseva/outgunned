@@ -58,3 +58,41 @@
   max-width: 2em;
   text-align: center;
 }
+
+.grit-marker{
+  cursor:pointer;
+  .grit-image {
+    border: unset;
+  }
+  img {
+    border: null;
+  }
+}
+.outgunned-editor {
+  & .hidden{
+    display: none;
+  }
+}
+.grit-tip{
+  font-size: 0.75em;
+  font-family: $font-jost;
+  font-weight: 600;
+  p{
+    margin: 0;
+  }
+  .tip-bad{
+    color:$c-grey;
+  }
+  .tip-hot{
+    color:$c-red;
+  }
+}
+
+.og-title {
+  h2{
+    border: none;
+    color: $c-red;
+    font-family: $font-jost;
+    font-weight: 600;
+  }
+}
