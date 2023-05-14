@@ -27,8 +27,8 @@
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
   "url": "",
-  "manifest": "",
-  "download": "",
-  "license": "LICENSE.txt",
+  "manifest": "https://raw.githubusercontent.com/superseva/outgunned/main/system.json",
+  "download": "https://github.com/superseva/outgunned/releases/download/v0.0.1/outgunned.zip",
+  "license": "LICENSE",
   "changelog": "CHANGELOG.md"
 }
