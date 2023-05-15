@@ -10,3 +10,13 @@ npm-debug.log
 *.lock
 jsconfig.json
 foundry
+
+# Gulp
+gulpfile.js
+package-lock.json
+package.json
+
+# Releases and zips
+*.7z
+*.zip
+*.rar
