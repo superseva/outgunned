@@ -5,6 +5,39 @@
 export class OutgunnedActor extends Actor {
 
   /** @override */
+  _preUpdate(changed, options, user) {
+    super._preUpdate(changed, options, user)
+    //console.warn(changed)
+    //console.warn(changed?.system?.conditions?.broken?.active)
+    if (changed?.system?.conditions?.broken?.active) {
+      //console.warn("TOGGLE ALL CONDITIONS")
+      changed.system.conditions = {
+        "hurt": {
+          "active": true
+        },
+        "nervous": {
+          "active": true
+        },
+        "fool": {
+          "active": true
+        },
+        "distracted": {
+          "active": true
+        },
+        "scared": {
+          "active": true
+        },
+        "tired": {
+          "active": true
+        },
+        "broken": {
+          "active": true
+        }
+      }
+    }
+  }
+
+  /** @override */
   prepareData() {
     // Prepare data for the actor. Calling the super version of this executes
     // the following, in order: data reset (to clear active effects),

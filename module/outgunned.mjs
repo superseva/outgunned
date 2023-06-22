@@ -155,7 +155,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
     rrlBtn[0].setAttribute('data-messageId', message.id);
     rrlBtn.click((el) => {
       let outgunnedFlags = message.flags.outgunnedFlags;
-      console.warn(outgunnedFlags);
+      //console.warn(outgunnedFlags);
       OutgunnedRoller.rollDice({rollName: outgunnedFlags.rollName,total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_REROLL, isGamble:outgunnedFlags.isGamble, carryOverDice: outgunnedFlags.carryOverDice})
     })
   }
@@ -166,7 +166,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
     frrlBtn[0].setAttribute('data-messageId', message.id);
     frrlBtn.click((el) => {
       let outgunnedFlags = message.flags.outgunnedFlags;
-      console.warn(outgunnedFlags);
+      //console.warn(outgunnedFlags);
       OutgunnedRoller.rollDice({rollName: outgunnedFlags.rollName, total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_FREE, isGamble:outgunnedFlags.isGamble, carryOverDice: outgunnedFlags.carryOverDice})
     })
   }
@@ -177,7 +177,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
     allBtn[0].setAttribute('data-messageId', message.id);
     allBtn.click((el) => {
       let outgunnedFlags = message.flags.outgunnedFlags;
-      console.warn(outgunnedFlags);
+      //console.warn(outgunnedFlags);
       OutgunnedRoller.rollDice({rollName: outgunnedFlags.rollName, total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_ALL, isGamble:outgunnedFlags.isGamble, carryOverDice: outgunnedFlags.carryOverDice})
     })
   }

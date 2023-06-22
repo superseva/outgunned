@@ -1,0 +1,42 @@
+<ol class="items-list">
+  <li class="item flexrow items-header">
+    <div class="item-name">Name</div>
+    <div class="flexrow item-ranges">RANGE</div>
+    <div class="flexrow item-ammo">AMMO</div>
+    <div class="item-controls">
+      <a class="item-control item-create" title="Create item" data-type="weapon"><i class="fas fa-plus"></i> Add</a>
+    </div>
+  </li>
+  {{#each weapons as |item id|}}
+    <li class="weapon item" style="flex-direction: column;" data-item-id="{{item._id}}">
+      <div class="flexrow">
+        
+        <h4 class="item-name"><img class="item-image" src="{{item.img}}" title="{{item.name}}" width="24" height="24"/><label>{{item.name}}</label></h4>    
+      
+        <div class="flexrow item-ranges">
+          {{#each item.system.range as |active key|}}
+          {{#if active}}
+            <div class="range-band">
+              {{key}}
+            </div>
+            {{/if}}
+          {{/each}}
+        </div>
+        <div class="item-ammo">
+          <input type="number" class="short-num-2" value="{{item.system.ammoCount}}" data-ammo="{{item.system.ammoCount}}">
+        </div>     
+        <div class="item-controls">
+          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        </div>   
+      </div>    
+      
+      
+      <div>
+        {{{lookup ../itemsEnrichedDescriptions item._id }}}
+      </div>  
+      
+     
+    </li>    
+  {{/each}}
+</ol>

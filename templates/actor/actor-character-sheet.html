@@ -117,9 +117,9 @@
         {{!-- MIDDLE COLUMN --}}
         <section class="middle-column grid-span-4">
           {{!-- Grit --}}
-          <div class="'grit">
+          <div class="'grit margin-btm-1">
             <div class="flexrow flex-between grit-title">
-              <div class="og-title"><h2>GRIT</h2></div>
+              <div class="og-title-lite"><h2>GRIT</h2></div>
               <div style="display:flex; justify-content: end;">
                 <p class="zero-grit">Reset Grit To 0</p>
               </div>           
@@ -156,10 +156,8 @@
           </div>
           {{!-- Feats --}}
           <div class="feats">
-            <div class="og-title"><h2>FEATS</h2></div>
-
-                {{> systems/outgunned/templates/actor/parts/actor-feats.html}}
-
+            <div class="og-title-lite right"><h2>FEATS</h2></div>
+              {{> systems/outgunned/templates/actor/parts/actor-feats.html}}
           </div>
         </section>
 
@@ -168,8 +166,8 @@
           {{!-- Spotlight, Experience, Adrenaline --}}
           <div class="grid grid-3col">
             <div>
-              <div>
-                <div class="og-title"><h3>SPOTLIGHT</h3></div>
+              <div class="spotlight-box margin-btm-1">
+                <div class="og-title-lite"><h3>SPOTLIGHT</h3></div>
                 <div class="flexrow flex-start">
                   {{#each spotlightBar as |spot key|}}
                   <div class="spotlight-marker bar-selector" data-select-value="{{spot.value}}" data-path="system.spotlight.value">
@@ -179,7 +177,7 @@
                 </div>
               </div>
               <div>
-                <div class="og-title"><h3>ADRENALINE</h3></div>
+                <div class="og-title-lite"><h3>ADRENALINE</h3></div>
                 <div class="flexrow flex-start">
                   {{#each adrenalineBar as |adrenaline key|}}
                   <div class="adrenaline-marker bar-selector" data-select-value="{{adrenaline.value}}" data-path="system.adrenaline.value">
@@ -190,37 +188,34 @@
               </div>
             </div>
             <div class="grid-span-2">
-              <div class="og-title"><h3>EXPERIENCE</h3></div>              
+              <div class="og-title-lite">
+                <h3>EXPERIENCES</h3>
+                <textarea style="resize: vertical;" rows="8" name="system.experiences">{{system.experiences}}</textarea>
+              </div>              
             </div>
           </div>
           {{!-- Conditions and Rulette --}}
           <div class="grid grid-3col">
             <div class="grid-span-2">              
-              <div class="og-title"><h2>YOU LOOK</h2></div>
-              <ol class="grid">
+              <div class="og-title"><h3>YOU LOOK</h3></div>
+              <ol class="grid items-list" style="gap:0">
                 {{#each system.conditions as |condition key|}}
-                <li>
-                  <label for="system.conditions.{{key}}.active">{{key}} - {{condition.attribute}}</label>
-                  <input type="checkbox" name="system.conditions.{{key}}.active" {{#if condition.active}}checked{{/if}}>
+                <li class="item flexrow condition">
+                  <div class="condition-name flex-group-right"><label class="" for="system.conditions.{{key}}.active">{{key}}</label></div>
+                  <div class="flex-group-center"><input type="checkbox" class="condition-checkbox" data-key="{{key}}" name="system.conditions.{{key}}.active" {{#if condition.active}}checked{{/if}}></div>
+                  <div class="condition-attribute flex-group-left"><label>{{condition.attribute}}</label></div>
                 </li>
                 {{/each}}
               </ol>
             </div>
             <div>
-              <div>ROULETE</div>
+              <div class="og-title-lite"><h3>ROULETE</h3></div>
             </div>
           </div>
           {{!-- WEAPONS --}}
           <div class="weapons">
-            <div class="og-title"><h2>WEAPONS</h2></div>
-            <ol class="items-list">
-              {{#each weapons as |item key|}}
-              <li class="item">
-                {{item.name}}
-                {{{item.system.descHTML}}}
-              </li>
-              {{/each}}
-            </ol>
+            <div class="og-title"><h3>WEAPONS</h3></div>
+            {{> systems/outgunned/templates/actor/parts/actor-weapons.html}}
           </div>
         </section>
 

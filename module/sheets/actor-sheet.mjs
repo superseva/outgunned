@@ -125,7 +125,7 @@ export class OutgunnedActorSheet extends ActorSheet {
   }
 
   _getSpotImage(value, currentSpotlight){
-    console.warn(value, currentSpotlight)
+    //console.warn(value, currentSpotlight)
     let toggle = value <= currentSpotlight? 'on':'off'
     let img =  `systems/outgunned/assets/ui/selector-circle-${toggle}.webp`; 
     return img;
@@ -213,8 +213,12 @@ export class OutgunnedActorSheet extends ActorSheet {
       li.slideUp(200, () => this.render(false));
     });
 
+    // Condition toggle
+    html.find(".condition-checkbox").change(this._onConditionClick.bind(this));
+
     // Active Effect management
     html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
+    
 
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
@@ -335,6 +339,15 @@ export class OutgunnedActorSheet extends ActorSheet {
 
   }
 
+  async _onConditionClick(event){
+    console.warn("Listen for  toggle all")
+    event.preventDefault();
+    const element = event.currentTarget;
+    if($(element).data("key")==="broken"){
+      console.warn("BROKEN")
+    }
+    
+  }
 
   async _zeroGrit(event){
     event.preventDefault();

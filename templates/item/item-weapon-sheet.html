@@ -32,6 +32,24 @@
                 <label class="resource-label">Roll Formula</label>
                 <input type="text" name="system.formula" value="{{system.formula}}" data-dtype="String" />
             </div>
+            <div class="resource flexrow flex-group-left">
+                <div>
+                    <label class="resource-label">Melee</label>
+                    <input type="checkbox" name="system.range.melee" {{#if system.range.melee}}checked{{/if}} />
+                </div>
+                <div>
+                    <label class="resource-label">Close</label>
+                    <input type="checkbox" name="system.range.close" {{#if system.range.close}}checked{{/if}} />
+                </div>
+                <div>
+                    <label class="resource-label">Medium</label>
+                    <input type="checkbox" name="system.range.medium" {{#if system.range.medium}}checked{{/if}} />
+                </div>
+                <div>
+                    <label class="resource-label">Long</label>
+                    <input type="checkbox" name="system.range.long" {{#if system.range.long}}checked{{/if}} />
+                </div>
+            </div>
             <div class="resource">
                 <label class="resource-label">Ammo Count</label>
                 <input type="number" name="system.ammoCount" value="{{system.ammoCount}}" data-dtype="Number" />

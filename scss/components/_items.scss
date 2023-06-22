@@ -72,19 +72,21 @@
 
   // Individual Item
   .item {
-    align-items: center;
-    padding: 0 2px; // to align with the header border
-    border-bottom: 1px solid $c-faint;
-    &:last-child { border-bottom: none; }
+    //align-items: center;
+    //padding: 0 2px; // to align with the header border
+    //border-bottom: 1px solid $c-faint;
+    //&:last-child { border-bottom: none; }
+    
     .item-name {
       color: $c-dark;
-      .item-image {
-        flex: 0 0 30px;
-        height: 30px;
-        background-size: 30px;
-        border: none;
-        margin-right: 5px;
-      }
+      
+    }
+    .item-image {
+      flex: 0 0 25px;
+      height: 25px;
+      background-size: 30px;
+     //border: none;
+      margin-right: 5px;
     }
   }
 
@@ -97,16 +99,21 @@
 
   // Section Header
   .items-header {
-    height: 28px;
-    margin: 2px 0;
+    //height: 28px;
+    //margin: 2px 0;
+    margin: 0;
     padding: 0;
     align-items: center;
-    background: rgba(0, 0, 0, 0.05);
-    border: $border-groove;
+    background:none;
+    //border: $border-groove;
+    border: none;
+    //color: $c-white;
     font-weight: bold;
     > * {
-      font-size: 12px;
+      font-size: 0.7rem;
       text-align: center;
+      padding: 0;
+      margin: 0;
     }
     .item-name {
       padding-left: 5px;
@@ -137,9 +144,31 @@
     //line-height: 28px;    
   }
   h4 {
-      font-weight: bold;
+      font-weight: 600;
       font-size:1.2rem;
       display: inline;
       vertical-align: bottom;
+  }
+}
+
+.weapon{
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  border: solid 3px $c-red ;
+  .item-name{
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  .item-ranges{
+    // 4 boxes here
+    font-size: 1rem;
+    .range-band{
+      margin: 0 0.5rem;
+    }
+  }
+  .item-ammo{
+    //ammo boxes
   }
 }

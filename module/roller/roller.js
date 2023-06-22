@@ -15,7 +15,7 @@ export class OutgunnedRoller {
     rollType = "",
     isGamble = false, 
     carryOverDice = [] } = {}) {
-        console.warn(`ROLL TYPE: ${rollType}`)
+        //console.warn(`ROLL TYPE: ${rollType}`)
         const totalDice = parseInt(total) + parseInt(modifier)
         const formula = `${totalDice}do`
         const roll = new Roll(formula);
@@ -36,7 +36,7 @@ export class OutgunnedRoller {
     rollType = "",
     isGamble = false,
     carryOverDice = [] } = {}) {
-        console.warn(`ROLL TYPE: ${rollType}`)
+        //console.warn(`ROLL TYPE: ${rollType}`)
 
         let results = roll.terms[0].results.map(r => r.result)
         results = [...results, ...carryOverDice]
@@ -58,12 +58,12 @@ export class OutgunnedRoller {
         }
         //! IF ROLL TYPE FREE
         if (rollType === OutgunnedRoller.ROLL_TYPE_FREE) {
-            console.warn('PARSING FREE REROLL')
+            //console.warn('PARSING FREE REROLL')
             await OutgunnedRoller.sendToChat({ rollName: rollName, results: results, carryOverDice: duplicates, toReroll: toReroll, isSuccess: isSuccess, rollType: rollType, isGamble: isGamble })
         }
         //! IF ROLL TYPE ALL IN
         if (rollType === OutgunnedRoller.ROLL_TYPE_ALL) {
-            console.warn('PARSING ALL IN')
+            //console.warn('PARSING ALL IN')
             await OutgunnedRoller.sendToChat({ rollName: rollName, results: results, carryOverDice: duplicates, toReroll: toReroll, isSuccess: isSuccess, rollType: rollType, isGamble: isGamble })
         }
 
@@ -71,18 +71,18 @@ export class OutgunnedRoller {
 
     static async discard({diceGroup = 0, rollName = 'Roll', actor = null, rollType = "",  isGamble=false, carryOverDice = [], results = [] } = {}) {
         //await OutgunnedRoller.rollDice({total:total, modifier:0})
-        console.warn(`DISCARDING DICE GROUP: ${diceGroup} FROM: `)
-        console.warn(results)
+        //console.warn(`DISCARDING DICE GROUP: ${diceGroup} FROM: `)
+        //console.warn(results)
         // TODO
         // remove dice group from results        
         const cleanedResults = results.filter(x => x !== diceGroup);
-        console.warn(cleanedResults)
+        //console.warn(cleanedResults)
         // calculate duplicates
         let duplicates = cleanedResults.map((e, i, a) => a.filter(f => f === e).length).reduce((p, c, i) => c === 1 ? p : p.concat(cleanedResults[i]), []);
         let toReroll = cleanedResults.filter(x => !duplicates.includes(x)).length;
         let isSuccess = duplicates.length > 0;
-        console.warn("DUPLICATES LEFT")
-        console.warn(duplicates)
+        //console.warn("DUPLICATES LEFT")
+        //console.warn(duplicates)
         // if any duoplicates left it is a success
         // proceed to ALL IN
         //if(isSuccess){
