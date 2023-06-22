@@ -19,10 +19,44 @@
           "badSpots": "8",
           "hotSpots": "12"
         },
+        "spotlight":{
+          "value":0,
+          "max":3
+        },
         "adrenaline": {
           "value": 0,
           "min": 0,
           "max": 6
+        },
+        "conditions":{
+          "hurt":{
+            "attribute": "brawn",
+            "active":false
+          },
+          "nervous":{
+            "attribute": "nerves",
+            "active":false
+          },
+          "fool":{
+            "attribute": "smooth",
+            "active":false
+          },
+          "distracted":{
+            "attribute": "focus",
+            "active":false
+          },
+          "scared":{
+            "attribute": "crime",
+            "active":false
+          },
+          "tired":{
+            "attribute": "",
+            "active":false
+          },
+          "broken":{
+            "attribute": "all",
+            "active":false
+          }
         },
         "achievements": "",
         "scars": "",
@@ -131,8 +165,6 @@
   },
   "Item": {
     "types": [
-      "item",
-      "skill",
       "feat",
       "weapon",
       "gear"
@@ -143,25 +175,29 @@
       },
       "physical": {
         "quantity": 1,
-        "weight": 0
+        "weight": 0,
+        "stashed": false
       }
     },
-    "item": {
+    "weapon": {
+      "templates": [
+        "base",
+        "physical"
+      ],
+      "range":{"melee":false,"close":false,"medium":false,"long":false},
+      "ammoCount": 3
+    },
+    "gear":{
       "templates": [
         "base",
         "physical"
       ]
-    },
-    "skill": {
-      "templates": [
-        "base"
-      ],
-      "value": 1
-    },
+    },   
     "feat": {
       "templates": [
         "base"
-      ]
+      ],
+      "rank":1
     }
   }
 }

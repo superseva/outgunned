@@ -11,7 +11,7 @@ export class OutgunnedActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["outgunned", "sheet", "actor"],
       template: "systems/outgunned/templates/actor/actor-sheet.html",
-      width: 950,
+      width: 1050,
       height: 750,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
     });
@@ -25,23 +25,16 @@ export class OutgunnedActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
-    // Retrieve the data structure from the base sheet. You can inspect or log
-    // the context variable to see the structure, but some key properties for
-    // sheets are the actor object, the data object, whether or not it's
-    // editable, the items array, and the effects array.
+  async getData() {
     const context = super.getData();
-
     // Use a safe clone of the actor data for further operations.
     const actorData = this.actor.toObject(false);
-
-    // Add the actor's data to context.data for easier access, as well as flags.
     context.system = actorData.system;
     context.flags = actorData.flags;
 
     // Prepare character data and items.
     if (actorData.type == 'character') {
-      this._prepareItems(context);
+      await this._prepareItems(context);
       this._prepareCharacterData(context);
     }
 
@@ -49,6 +42,17 @@ export class OutgunnedActorSheet extends ActorSheet {
     if (actorData.type == 'npc') {
       this._prepareItems(context);
     }
+
+    //Prepare Items Enriched Descriptions
+    const itemTypes = ['feat', 'weapon']
+    let itemsEnrichedDescriptions = {};
+    for await(let itm of this.actor.items){
+        if(itemTypes.includes(itm.type)){
+            const descriptionRich = await TextEditor.enrichHTML(itm.system.description, {async:true})
+            itemsEnrichedDescriptions[itm._id] = descriptionRich;
+        }
+    }
+    context.itemsEnrichedDescriptions = itemsEnrichedDescriptions;
 
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
@@ -66,7 +70,8 @@ export class OutgunnedActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareCharacterData(context) {    
+  _prepareCharacterData(context) { 
+    // Grit bar   
     const badGrits = context.system.grit.badSpots.split(",").map(function(item) {
       return item.trim();
     });
@@ -83,6 +88,28 @@ export class OutgunnedActorSheet extends ActorSheet {
       gritBar.push(grit)
     }
     context.gritBar = gritBar;
+
+    // Spotlight bar
+    let spotlightBar = []
+    for(let i=0; i<context.system.spotlight.max; i++){
+      spotlightBar.push({
+        index: i,
+        value: parseInt(i)+1,
+        img: this._getSpotImage(parseInt(i)+1, context.system.spotlight.value)
+      })
+    }
+    context.spotlightBar = spotlightBar;
+
+    //Adrenaline Bar
+    let adrenalineBar = []
+    for(let i=0; i<context.system.adrenaline.max; i++){
+      adrenalineBar.push({
+        index: i,
+        value: parseInt(i)+1,
+        img: this._getSpotImage(parseInt(i)+1, context.system.adrenaline.value)
+      })
+    }
+    context.adrenalineBar = adrenalineBar;
   }
 
   _getGritImage(value, hots, bads, currentGrit){    
@@ -97,6 +124,13 @@ export class OutgunnedActorSheet extends ActorSheet {
     return img;
   }
 
+  _getSpotImage(value, currentSpotlight){
+    console.warn(value, currentSpotlight)
+    let toggle = value <= currentSpotlight? 'on':'off'
+    let img =  `systems/outgunned/assets/ui/selector-circle-${toggle}.webp`; 
+    return img;
+  }
+
   /**
    * Organize and classify Items for Character sheets.
    *
@@ -104,46 +138,36 @@ export class OutgunnedActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareItems(context) {
+  async _prepareItems(context) {
     // Initialize containers.
+    const weapons = []
     const gear = [];
-    const features = [];
-    const spells = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: []
-    };
+    const feats = [];
 
     // Iterate through items, allocating to containers
-    for (let i of context.items) {
+    for await(let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
-      // Append to gear.
-      if (i.type === 'item') {
+      if (i.type === 'weapon') {
+        weapons.push(i);
+      }
+      if (i.type === 'gear') {
         gear.push(i);
       }
-      // Append to features.
-      else if (i.type === 'feature') {
-        features.push(i);
-      }
-      // Append to spells.
-      else if (i.type === 'spell') {
-        if (i.system.spellLevel != undefined) {
-          spells[i.system.spellLevel].push(i);
-        }
+      else if (i.type === 'feat') {
+        i.system.descHTML = await TextEditor.enrichHTML(i.system.description, {
+          secrets: i.isOwner,
+          async: true
+        })
+        feats.push(i);
       }
     }
 
     // Assign and return
+    context.weapons = weapons;
     context.gear = gear;
-    context.features = features;
-    context.spells = spells;
+    context.feats = feats;
+    //console.warn(context.feats)
+
   }
 
   /* -------------------------------------------- */
@@ -172,10 +196,11 @@ export class OutgunnedActorSheet extends ActorSheet {
     // Roll Button Click
     html.find('.roll-button').click(this._onRollButtonClick.bind(this))
 
-    // Grit Marker Click
-    html.find('.grit-marker').click(this._onGritClick.bind(this))
     // Zero Crit
     html.find('.zero-grit').click(this._zeroGrit.bind(this))
+
+    // GRTI, SPOTLIGHT, ADRENALINE Bars
+    html.find('.bar-selector').mousedown(this._onBarSelectorClick.bind(this))
 
     // Add Inventory Item
     html.find('.item-create').click(this._onItemCreate.bind(this));
@@ -265,10 +290,12 @@ export class OutgunnedActorSheet extends ActorSheet {
     const _attrs = $(element).parent().parent().find('.attributes')
     const elAttr = $(_attrs).find('.attribute.selected')
     const attrValue = $(elAttr).data('value')
+    const attrKey = $(elAttr).data('attribute')
 
     const _skls = $(element).parent().parent().find('.skills')
     const elSkill = $(_skls).find('.skill.selected')
     const skillValue = $(elSkill).data('value')
+    const skillKey = $(elAttr).data('skill')
     
     const rollName = $(elAttr).data('attribute') + " / " + $(elSkill).data('skill')
     let _total = parseInt(attrValue) + parseInt(skillValue);
@@ -284,24 +311,49 @@ export class OutgunnedActorSheet extends ActorSheet {
       $(gambleEl).prop("checked", false)
     }
 
-    // reset modifier
+    // Conditions
+    console.warn(this.actor.system.conditions)
+    let conditionPenalty = 0;
+    if(attrKey!="" && skillKey!=""){
+      //let conditions = this.actor.system.conditions.map(c=>{c.active==true && c.attribute==attrKey})
+      //console.warn(conditions)
+      console.warn(`HAS CONDITION FOR ATTR: ${attrKey}`)
+      for(const c of Object.keys(this.actor.system.conditions)){
+        console.warn(c, attrKey)
+        console.warn(this.actor.system.conditions[c].active)
+        if(this.actor.system.conditions[c].active && this.actor.system.conditions[c].attribute == attrKey){
+          _total-=1;
+         }
+      }
+    }
+    console.warn(`CONDITION PENALTY: ${conditionPenalty}`)
+
+    // reset INPUT FIELD modifier
     $(modifierEl).val(0)
 
     game.outgunned.OutgunnedRoller.rollDice({ rollName: rollName, total: _total, modifier: _modifier, rollType: game.outgunned.OutgunnedRoller.ROLL_TYPE_INITIAL, isGamble: isGamble });
 
   }
 
-  async _onGritClick(event){
-    event.preventDefault();
-    const element = event.currentTarget;
-    const dataset = element.dataset;
-    let currentGrit = parseInt(dataset.gritvalue);
-    await this.actor.update({"system.grit.value":currentGrit})
-  }
 
   async _zeroGrit(event){
     event.preventDefault();
     await this.actor.update({"system.grit.value":0})
+  }
+
+  async _onBarSelectorClick(event){
+    event.preventDefault();    
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+    const updatePath = dataset.path;
+    let currentValue = parseInt(dataset.selectValue);
+    // handle right click
+    if(event.which === 3){
+      currentValue = currentValue-1
+    }
+    let update = {}
+    update[updatePath] = currentValue;
+    await this.actor.update(update)
   }
 
   /**

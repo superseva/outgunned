@@ -7,7 +7,7 @@
   return loadTemplates([
 
     // Actor partials.
-    "systems/outgunned/templates/actor/parts/actor-features.html",
+    "systems/outgunned/templates/actor/parts/actor-feats.html",
     "systems/outgunned/templates/actor/parts/actor-items.html",
     "systems/outgunned/templates/actor/parts/actor-spells.html",
     "systems/outgunned/templates/actor/parts/actor-effects.html",

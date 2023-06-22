@@ -195,7 +195,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
           rerollIndex.push($(d).data('dice-type'));
       }
       if (!rerollIndex.length) {
-          ui.notifications.notify('Select Dice you want to Reroll');
+          ui.notifications.notify('Select Dice you want to Discard');
           return;
       }
       OutgunnedRoller.discard({rollName: outgunnedFlags.rollName, diceGroup: rerollIndex[0], total:outgunnedFlags.toReroll, rollType: OutgunnedRoller.ROLL_TYPE_DISCARD, isGamble:outgunnedFlags.isGamble, carryOverDice: outgunnedFlags.carryOverDice, results: outgunnedFlags.results})

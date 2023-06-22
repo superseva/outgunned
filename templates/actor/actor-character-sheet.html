@@ -57,33 +57,33 @@
 
     {{!-- Owned Features Tab --}}
     <div class="tab features" data-group="primary" data-tab="features">
+      
       <section class="grid grid-12col">
-        <aside class="sidebar grid-span-3">
-          {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-          use both the "grid" and "grid-Ncol" class where "N" can be any number
-          from 1 to 12 and will create that number of columns.  --}}
+        {{!-- LEFT COLUMN --}}
+        <aside class="sidebar grid-span-2">
+          {{!-- Attributes and Skills --}}
           <div class="attributes flexcol">
             {{#each system.attributes as |attribute key|}}
-            <div class="attribute flexrow flex-group-left" data-key="system.attributes.{{key}}.value" data-attribute="{{key}}" data-value="{{attribute.value}}">
+            <div class="attribute selectable-ability flexrow flex-group-left" data-key="system.attributes.{{key}}.value" data-attribute="{{key}}" data-value="{{attribute.value}}">
               <div>
                 <label>{{key}}</label>
                 <label class="attribute-diamond"><i class="{{#ifCond attribute.value '>=' 1}}fa-solid{{/ifCond}} {{#ifCond attribute.value '<' 1}}fa-regular{{/ifCond}} fa-diamond"></i></label>
                 <label class="attribute-diamond"><i class="{{#ifCond attribute.value '>=' 2}}fa-solid{{/ifCond}} {{#ifCond attribute.value '<' 2}}fa-regular{{/ifCond}} fa-diamond"></i></label>
                 <label class="attribute-diamond"><i class="{{#ifCond attribute.value '>=' 3}}fa-solid{{/ifCond}} {{#ifCond attribute.value '<' 3}}fa-regular{{/ifCond}} fa-diamond"></i></label>
                 <!-- <input type="number" name="system.attributes.{{key}}.value" value="{{attribute.value}}">               -->
-              </div>  
+              </div>
             </div>
             
             <div class="skills">
               {{#each attribute.skills as |skill skey|}}
-              <div class="skill flexrow flex-group-right" data-key="system.attributes.{{key}}.skills.{{skey}}.value" data-skill="{{skey}}" data-value="{{skill.value}}">
-                <div>
+              <div class="skill selectable-ability flexrow flex-group-right" data-key="system.attributes.{{key}}.skills.{{skey}}.value" data-skill="{{skey}}" data-value="{{skill.value}}">             
+                <div>                  
                   <label>{{skey}}</label>
                   <label class="skill-diamond"><i class="{{#ifCond skill.value '>=' 1}}fa-solid{{/ifCond}} {{#ifCond skill.value '<' 1}}fa-regular{{/ifCond}} fa-diamond"></i></label>
                   <label class="skill-diamond"><i class="{{#ifCond skill.value '>=' 2}}fa-solid{{/ifCond}} {{#ifCond skill.value '<' 2}}fa-regular{{/ifCond}} fa-diamond"></i></label>
                   <label class="skill-diamond"><i class="{{#ifCond skill.value '>=' 3}}fa-solid{{/ifCond}} {{#ifCond skill.value '<' 3}}fa-regular{{/ifCond}} fa-diamond"></i></label>
                   <!-- <input type="number" name="system.attributes.{{key}}.skills.{{skey}}.value" value="{{skill.value}}">    -->
-                </div>  
+                </div>                  
               </div>              
               {{/each}}
             </div>
@@ -97,6 +97,7 @@
             </div>
             {{/each}} -->
           </div>
+          {{!-- Modifiers Box --}}
           <div class="flexrow modifiers-group">
             <span>
               <label>Modifier</label>
@@ -107,15 +108,15 @@
               <input type="checkbox" class="gamble-checkbox">
             </span>            
           </div>
+          {{!--Roll Button --}}
           <div>
             <Button class="roll-button">ROLL</Button>
           </div>
         </aside>
 
-        {{!-- For the main features list, span second columns --}}
-        <section class="middle-column grid-span-4" style="background-color: white;">
-          {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}}
-          <!-- {{> "systems/outgunned/templates/actor/parts/actor-features.html"}} -->
+        {{!-- MIDDLE COLUMN --}}
+        <section class="middle-column grid-span-4">
+          {{!-- Grit --}}
           <div class="'grit">
             <div class="flexrow flex-between grit-title">
               <div class="og-title"><h2>GRIT</h2></div>
@@ -143,7 +144,7 @@
             </div>            
             <div class="grit-bar grid grid-12col" style="gap:0.1em">
               {{#each gritBar as |grit index|}}
-              <div class="grit-marker" data-gritvalue="{{grit.value}}">
+              <div class="grit-marker bar-selector" data-select-value="{{grit.value}}" data-path="system.grit.value">
                 <img src="{{grit.img}}" class="grit-image">
               </div>
               {{/each}}
@@ -151,20 +152,82 @@
             <div class="grit-tip">
               <p class="tip-bad">BAD: SUFFER A CONDITION</p>
               <p class="tip-hot">HOT: GAIN 2 ADRENALINE</p>
-            </divc>           
+            </div>           
+          </div>
+          {{!-- Feats --}}
+          <div class="feats">
+            <div class="og-title"><h2>FEATS</h2></div>
+
+                {{> systems/outgunned/templates/actor/parts/actor-feats.html}}
+
           </div>
         </section>
 
-        {{!-- For the third column --}}
-        <section class="right-column grid-span-5" style="background-color: white;">
-          {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}}
-          <!-- {{> "systems/outgunned/templates/actor/parts/actor-features.html"}} -->
+        {{!-- RIGHT COLUMN --}}
+        <section class="right-column grid-span-6">
+          {{!-- Spotlight, Experience, Adrenaline --}}
+          <div class="grid grid-3col">
+            <div>
+              <div>
+                <div class="og-title"><h3>SPOTLIGHT</h3></div>
+                <div class="flexrow flex-start">
+                  {{#each spotlightBar as |spot key|}}
+                  <div class="spotlight-marker bar-selector" data-select-value="{{spot.value}}" data-path="system.spotlight.value">
+                    <img src="{{spot.img}}">
+                  </div>                  
+                  {{/each}}
+                </div>
+              </div>
+              <div>
+                <div class="og-title"><h3>ADRENALINE</h3></div>
+                <div class="flexrow flex-start">
+                  {{#each adrenalineBar as |adrenaline key|}}
+                  <div class="adrenaline-marker bar-selector" data-select-value="{{adrenaline.value}}" data-path="system.adrenaline.value">
+                    <img src="{{adrenaline.img}}">
+                  </div>                  
+                  {{/each}}
+                </div>
+              </div>
+            </div>
+            <div class="grid-span-2">
+              <div class="og-title"><h3>EXPERIENCE</h3></div>              
+            </div>
+          </div>
+          {{!-- Conditions and Rulette --}}
+          <div class="grid grid-3col">
+            <div class="grid-span-2">              
+              <div class="og-title"><h2>YOU LOOK</h2></div>
+              <ol class="grid">
+                {{#each system.conditions as |condition key|}}
+                <li>
+                  <label for="system.conditions.{{key}}.active">{{key}} - {{condition.attribute}}</label>
+                  <input type="checkbox" name="system.conditions.{{key}}.active" {{#if condition.active}}checked{{/if}}>
+                </li>
+                {{/each}}
+              </ol>
+            </div>
+            <div>
+              <div>ROULETE</div>
+            </div>
+          </div>
+          {{!-- WEAPONS --}}
+          <div class="weapons">
+            <div class="og-title"><h2>WEAPONS</h2></div>
+            <ol class="items-list">
+              {{#each weapons as |item key|}}
+              <li class="item">
+                {{item.name}}
+                {{{item.system.descHTML}}}
+              </li>
+              {{/each}}
+            </ol>
+          </div>
         </section>
 
       </section>
     </div>
 
-    {{!-- Biography Tab --}}
+    <!-- {{!-- Biography Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
       {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data to the rollData property. --}}
       {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
@@ -183,7 +246,7 @@
     {{!-- Active Effects Tab --}}
     <div class="tab effects flexcol" data-group="primary" data-tab="effects">
       {{> "systems/outgunned/templates/actor/parts/actor-effects.html"}}
-    </div>
+    </div> -->
 
   </section>
 </form>

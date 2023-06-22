@@ -29,15 +29,47 @@
   cursor: pointer;
 }
 
-.outgunned-chat-message .roll-name {
+.chat-message {
+  background-image: unset;
+  background-color: #f5f1e6;
+}
+
+.outgunned-chat-message {
+  background-color: #f5f1e6;
+  opacity: 1;
+}
+
+.outgunned-chat-message button {
+  font-family: "Thunder Nova", sans-serif;
+  font-size: 1.3rem;
+  color: #fff;
+  background-color: #b1251a;
+}
+
+.outgunned-chat-message .roll-info {
+  display: flex;
+  align-items: baseline;
+  gap: 1em;
+  font-style: italic;
+}
+
+.outgunned-chat-message .roll-info .roll-name {
   border: none;
   font-family: "Thunder Nova", sans-serif;
   color: #b1251a;
 }
 
-.outgunned-chat-message .gamble {
-  font-family: "barlow", sans-serif;
+.outgunned-chat-message .roll-info .roll-type {
+  border: none;
+  font-family: "Thunder Nova", sans-serif;
   color: #b1251a;
+}
+
+.outgunned-chat-message .roll-info .gamble {
+  font-family: "barlow", sans-serif;
+  color: #fff;
+  background-color: #b1251a;
+  padding: 0.25rem;
 }
 
 .outgunned-chat-message .dice-group {
@@ -72,38 +104,70 @@
   line-height: 28px;
   float: left;
   margin-right: 1px;
-  background-repeat: no-repeat;
-  background-size: 28px 28px;
-  background-color: red;
+  background-color: #b1251a;
   font-size: 16px;
   color: black;
   font-weight: bold;
   text-align: center;
   margin: 0.1em;
+  border: none;
+  opacity: 0;
 }
 
-.dice-icon.d1 {
-  background-image: url(../assets/dice/white-1.webp);
+.dice-icon.dice-in {
+  animation-fill-mode: forwards !important;
+  animation: fade 0.17s cubic-bezier(0.99, 0.8, 0.2, 0.99) 1;
 }
 
-.dice-icon.d2 {
-  background-image: url(../assets/dice/white-2.webp);
+.dice-icon.dice-in:nth-child(1n) {
+  animation-delay: 0.07s;
 }
 
-.dice-icon.d3 {
-  background-image: url(../assets/dice/white-3.webp);
+.dice-icon.dice-in:nth-child(2n) {
+  animation-delay: 0.14s;
 }
 
-.dice-icon.d4 {
-  background-image: url(../assets/dice/white-4.webp);
+.dice-icon.dice-in:nth-child(3n) {
+  animation-delay: 0.21s;
 }
 
-.dice-icon.d5 {
-  background-image: url(../assets/dice/white-5.webp);
+.dice-icon.dice-in:nth-child(4n) {
+  animation-delay: 0.28s;
 }
 
-.dice-icon.d6 {
-  background-image: url(../assets/dice/white-6.webp);
+.dice-icon.dice-in:nth-child(5n) {
+  animation-delay: 0.35s;
+}
+
+.dice-icon.dice-in:nth-child(6n) {
+  animation-delay: 0.42s;
+}
+
+.dice-icon.dice-in:nth-child(7n) {
+  animation-delay: 0.49s;
+}
+
+.dice-icon.dice-in:nth-child(8n) {
+  animation-delay: 0.56s;
+}
+
+.dice-icon.dice-in:nth-child(9n) {
+  animation-delay: 0.63s;
+}
+
+.dice-icon.dice-in:nth-child(10n) {
+  animation-delay: 0.7s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    left: 100px;
+  }
+  to {
+    opacity: 1;
+    left: 0px;
+  }
 }
 
 .grid,
@@ -367,15 +431,12 @@
   text-align: center;
 }
 
-.outgunned .grit-marker {
+.outgunned .grit-marker, .outgunned .spotlight-marker {
   cursor: pointer;
 }
 
-.outgunned .grit-marker .grit-image {
+.outgunned .grit-marker img, .outgunned .spotlight-marker img {
   border: unset;
-}
-
-.outgunned .grit-marker img {
   border: null;
 }
 
@@ -401,11 +462,26 @@
   color: #b1251a;
 }
 
-.outgunned .og-title h2 {
+.outgunned .og-title h1, .outgunned .og-title h2, .outgunned .og-title h3, .outgunned .og-title h4 {
   border: none;
   color: #b1251a;
   font-family: "Jost", sans-serif;
   font-weight: 600;
+  --s:20px;
+  color: #fff;
+  text-align: center;
+  padding: 2px 20px 2px 10px;
+  background: linear-gradient(-225deg, transparent var(--s), #ad1c1c 0) left/50.5% 100%, linear-gradient(225deg, transparent var(--s), #ad1c1c 0) 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.outgunned .roll-button {
+  background-color: #b1251a;
+  font-family: "Thunder Nova", sans-serif;
+  font-size: 1.5rem;
+  color: white;
+  border: none;
+  padding: 10%;
 }
 
 .outgunned .resource-label {
@@ -415,28 +491,33 @@
 .outgunned .attributes .attribute {
   font-family: "barlow", sans-serif;
   font-weight: 600;
-  font-size: 1.1em;
+  font-size: 1.2em;
   text-transform: uppercase;
   margin-bottom: 0.2em;
   color: #b1251a;
 }
 
-.outgunned .attributes .attribute.selected {
-  background-color: #b1251a;
-  color: white;
-}
-
 .outgunned .skills .skill {
   font-family: "barlow", sans-serif;
   font-weight: 600;
-  font-size: 1em;
+  font-size: 0.9em;
   text-transform: uppercase;
   margin-bottom: 0.1em;
 }
 
-.outgunned .skills .skill.selected {
+.outgunned .selectable-ability.selected {
   background-color: #b1251a;
   color: white;
+  animation: anim_select_attribute 0.17s cubic-bezier(0.99, 0.8, 0.2, 0.99) 1;
+}
+
+@keyframes anim_select_attribute {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .outgunned .modifiers-group {
@@ -484,13 +565,16 @@
   flex: 2;
   margin: 0;
   overflow: hidden;
-  font-size: 13px;
+  font-size: 1rem;
   text-align: left;
   align-items: center;
   display: flex;
 }
 
 .outgunned .items-list .item-name h3, .outgunned .items-list .item-name h4 {
+  font-family: "barlow", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
   margin: 0;
   white-space: nowrap;
   overflow-x: hidden;
@@ -557,9 +641,32 @@
   text-align: left;
 }
 
+.outgunned .items-list .item-description {
+  font-size: 0.8rem;
+}
+
 .outgunned .item-formula {
   flex: 0 0 200px;
   padding: 0 8px;
+}
+
+.outgunned .feat {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  border: solid 3px #b1251a;
+}
+
+.outgunned .feat .item-image, .outgunned .feat .item-name, .outgunned .feat .item-description, .outgunned .feat p {
+  display: inline;
+  vertical-align: bottom;
+  font-size: 1rem;
+}
+
+.outgunned .feat h4 {
+  font-weight: bold;
+  font-size: 1.2rem;
+  display: inline;
+  vertical-align: bottom;
 }
 
 .outgunned .effects .item .effect-source,

@@ -59,12 +59,10 @@
   text-align: center;
 }
 
-.grit-marker{
+.grit-marker, .spotlight-marker{
   cursor:pointer;
-  .grit-image {
-    border: unset;
-  }
   img {
+    border: unset;
     border: null;
   }
 }
@@ -89,10 +87,28 @@
 }
 
 .og-title {
-  h2{
+  h1, h2, h3, h4{
     border: none;
     color: $c-red;
     font-family: $font-jost;
     font-weight: 600;
+
+  --s:20px;
+  color: #fff;
+  text-align: center;
+  padding:2px 20px 2px 10px;
+  background:
+    linear-gradient(-225deg,transparent var(--s),#ad1c1c 0) left /50.5% 100%,
+    linear-gradient( 225deg,transparent var(--s),#ad1c1c 0) 100% 100%;
+  background-repeat:no-repeat;
   }
+}
+
+.roll-button{
+  background-color: $c-red;
+  font-family: $font-thunder;
+  font-size: 1.5rem;
+  color: white;
+  border: none;
+  padding: 10%;
 }

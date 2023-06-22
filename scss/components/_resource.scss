@@ -1,37 +1,45 @@
 .resource-label {
-  font-weight: bold;
+	font-weight: bold;
 }
 
-.attributes{
-  .attribute{
-    font-family: $font-primary;
-    font-weight: 600;
-    font-size: 1.1em;
-    text-transform: uppercase;
-    margin-bottom: 0.2em;
-    color: $c-red;
-    &.selected{
-      background-color: $c-red;
-      color: white;
-    }    
-  }
+.attributes {
+	.attribute {
+		font-family: $font-primary;
+		font-weight: 600;
+		font-size: 1.2em;
+		text-transform: uppercase;
+		margin-bottom: 0.2em;
+		color: $c-red;
+	}
 }
 
-.skills{
-  .skill{
-    font-family: $font-primary;
-    font-weight: 600;
-    font-size: 1em;
-    text-transform: uppercase;
-    margin-bottom: 0.1em;
-    &.selected{
-      background-color: $c-red;
-      color: white;
-    }
-  }
+.skills {
+	.skill {
+		font-family: $font-primary;
+		font-weight: 600;
+		font-size: 0.9em;
+		text-transform: uppercase;
+		margin-bottom: 0.1em;
+	}
 }
 
-.modifiers-group{
-  margin: 1em;
+.selectable-ability {
+	&.selected {
+		background-color: $c-red;
+		//background: repeating-linear-gradient(315deg, #e7d7d7, #e7d7d7 5px, $c-red 5px, $c-red 10px);
+		color: white;
+		@include keyframes(anim_select_attribute) {
+			from {
+				opacity: 0;
+			}
+			to {
+				opacity: 1;
+			}
+		}
+		@include animate(anim_select_attribute, 0.17s, cubic-bezier(0.99, 0.8, 0.2, 0.99), 1);
+	}
 }
 
+.modifiers-group {
+	margin: 1em;
+}

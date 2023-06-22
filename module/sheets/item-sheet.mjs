@@ -10,7 +10,7 @@ export class OutgunnedItemSheet extends ItemSheet {
       classes: ["outgunned", "sheet", "item"],
       width: 520,
       height: 480,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "attributes" }]
     });
   }
 
@@ -28,23 +28,32 @@ export class OutgunnedItemSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
+  async getData(options) {
     // Retrieve base data structure.
-    const context = super.getData();
-
+    const context = await super.getData(options);
     // Use a safe clone of the item data for further operations.
-    const itemData = context.item;
+    const item = context.item;
+    const source = item.toObject();
+    foundry.utils.mergeObject(context, {
+      source: source.system,
+      system: item.system,      
+      isEmbedded: item.isEmbedded,
+      type: item.type,      
+      flags: item.flags     
+    })
 
     // Retrieve the roll data for TinyMCE editors.
-    context.rollData = {};
-    let actor = this.object?.parent ?? null;
-    if (actor) {
-      context.rollData = actor.getRollData();
-    }
+    // context.rollData = {};
+    // let actor = this.object?.parent ?? null;
+    // if (actor) {
+    //   context.rollData = actor.getRollData();
+    // }
 
     // Add the actor's data to context.data for easier access, as well as flags.
-    context.system = itemData.system;
-    context.flags = itemData.flags;
+    context.descriptionHTML = await TextEditor.enrichHTML(item.system.description, {
+      secrets: item.isOwner,
+      async: true
+    })
 
     return context;
   }

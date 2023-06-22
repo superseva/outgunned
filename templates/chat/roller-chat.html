@@ -1,12 +1,17 @@
 <div class="outgunned-chat-message">
     <div class="content">
-        <h2 class="roll-name"><em>{{rollName}}</em></h2>
-        {{#if isGamble}}<p class="gamble">Gamble Roll</p>{{/if}}
+        <div class="roll-info">
+            <h2 class="roll-name">{{rollName}}</h2>
+            <h3 class="roll-type">{{rollType}}</h3>
+            {{#if isGamble}}<p class="gamble">Gamble <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></p>{{/if}}
+        </div>        
+        
         <div style="display:flex; flex-direction:column">
             {{#each groupedResults}}
-            <div class="dice-group" data-dice-type="{{getDicegroupType this}}" data-group-length="{{this.length}}">
+            <div class="dice-group {{#ifCond this.length '>' 1}}success{{/ifCond}}" data-dice-type="{{getDicegroupType this}}" data-group-length="{{this.length}}">
                 {{#each this}}
-                    <span class="dice-icon d{{this}}">&nbsp;</span>      
+                    <img class="dice-icon d{{this}} dice-in" src="systems/outgunned/assets/dice/white-{{this}}.webp" title="{{this}}">
+                    <!-- <span class="dice-icon d{{this}} scaled">&nbsp;</span>       -->
                 {{/each}}
                 <span class="success-label">&nbsp;{{getSuccessLevelLabel this.length}}</span>
             </div>
