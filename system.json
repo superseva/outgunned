@@ -11,7 +11,7 @@
   "authors": [{
     "name": "Asacolips"
   }],
-  "esmodules": ["module/outgunned.mjs"],
+  "esmodules": ["module/outgunned.mjs", "module/helpers/gsap/esm/all.js"],
   "styles": ["css/outgunned.css"],
   "scripts": [],
   "packs": [],

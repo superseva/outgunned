@@ -58,7 +58,7 @@
     {{!-- Owned Features Tab --}}
     <div class="tab features" data-group="primary" data-tab="features">
       
-      <section class="grid grid-12col">
+      <section class="grid grid-12col" style="gap:1.2rem">
         {{!-- LEFT COLUMN --}}
         <aside class="sidebar grid-span-2">
           {{!-- Attributes and Skills --}}
@@ -208,8 +208,30 @@
                 {{/each}}
               </ol>
             </div>
-            <div>
-              <div class="og-title-lite"><h3>ROULETE</h3></div>
+            <div style="display: block;">              
+              <div class="roulette-wheel">
+                {{#each rouletteBar as |bullet key|}}
+                <div class="petal"><div class="icon bar-selector {{#if bullet.selected}}selected{{/if}}" data-select-value="{{bullet.value}}" data-path="system.roulette.value">{{bullet.value}}</div></div>
+                {{/each}}
+                <div class="roulette-roll-pointer">
+                  <img src="systems/outgunned/assets/ui/roulette/roll-pointer.webp">
+                </div>
+                <div class="roulette-roll-button">
+                  <img src="systems/outgunned/assets/ui/roulette/roll-button-idle.webp">
+                </div>
+
+                <div class="roulette-death">
+                  YOU DIE
+                </div>
+                <!-- <div class="petal"><div class="icon bar-selector" data-select-value="1" data-path="system.roulette.value">1</div></div>
+                <div class="petal"><div class="icon bar-selector" data-select-value="2" data-path="system.roulette.value">2</div></div>
+                <div class="petal"><div class="icon bar-selector" data-select-value="3" data-path="system.roulette.value">3</div></div>
+                <div class="petal"><div class="icon bar-selector" data-select-value="4" data-path="system.roulette.value">4</div></div>
+                <div class="petal"><div class="icon bar-selector" data-select-value="5" data-path="system.roulette.value">5</div></div>
+                <div class="petal"><div class="icon bar-selector" data-select-value="6" data-path="system.roulette.value">6</div></div> -->
+              </div>
+              <!-- <div class="og-title-lite"><h3>ROULETTE</h3></div> -->
+              
             </div>
           </div>
           {{!-- WEAPONS --}}

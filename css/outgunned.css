@@ -20,7 +20,7 @@
 
 .window-app .window-content {
   background: unset;
-  background-color: #f5f1e6;
+  background-color: #fbf9f5;
 }
 
 .rollable:hover, .rollable:focus {
@@ -31,11 +31,11 @@
 
 .chat-message {
   background-image: unset;
-  background-color: #f5f1e6;
+  background-color: #fbf9f5;
 }
 
 .outgunned-chat-message {
-  background-color: #f5f1e6;
+  background-color: #fbf9f5;
   opacity: 1;
 }
 
@@ -512,6 +512,155 @@
 
 .outgunned .condition .condition-attribute {
   opacity: 0.5;
+}
+
+.outgunned .roulette-box img {
+  border: none;
+}
+
+.outgunned .roulette-wheel {
+  width: 160px;
+  height: 160px;
+  background-image: url(../assets/ui/roulette/roulette-bg.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.outgunned .roulette-wheel .petal {
+  position: absolute;
+  top: 32px;
+  left: 70px;
+  display: inline-block;
+  width: 20px;
+  height: 50px;
+  transform-origin: bottom center;
+}
+
+.outgunned .roulette-wheel .petal .icon {
+  cursor: pointer;
+  font-family: "Jost", sans-serif;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+  background-image: url(../assets/ui/selector-circle-off.webp);
+  background-size: cover;
+  opacity: 0.2;
+}
+
+.outgunned .roulette-wheel .petal .icon.selected {
+  background-image: url(../assets/ui/selector-circle-full.webp);
+  color: #fff;
+  opacity: 1;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(0) {
+  rotate: 0deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(0) .icon {
+  rotate: 0deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(1) {
+  rotate: 60deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(1) .icon {
+  rotate: -60deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(2) {
+  rotate: 120deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(2) .icon {
+  rotate: -120deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(3) {
+  rotate: 180deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(3) .icon {
+  rotate: -180deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(4) {
+  rotate: 240deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(4) .icon {
+  rotate: -240deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(5) {
+  rotate: 300deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(5) .icon {
+  rotate: -300deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(6) {
+  rotate: 360deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(6) .icon {
+  rotate: -360deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(7) {
+  rotate: 420deg;
+}
+
+.outgunned .roulette-wheel .petal:nth-child(7) .icon {
+  rotate: -420deg;
+}
+
+.outgunned .roulette-wheel .roulette-roll-button {
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.outgunned .roulette-wheel .roulette-roll-button img {
+  width: 35px;
+  border: none;
+}
+
+.outgunned .roulette-wheel .roulette-roll-pointer {
+  pointer-events: none;
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.outgunned .roulette-wheel .roulette-roll-pointer img {
+  width: 70px;
+  border: none;
+}
+
+.outgunned .roulette-wheel .roulette-death {
+  pointer-events: none;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Thunder Nova", sans-serif;
+  font-size: 2rem;
+  color: #fff;
+  background-color: #b1251a;
+  padding: 0.2rem;
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
 }
 
 .outgunned .margin-btm-1 {

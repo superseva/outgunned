@@ -58,6 +58,10 @@
             "active":false
           }
         },
+        "roulette":{
+          "value":0,
+          "max":6
+        },
         "experiences":"",
         "achievements": "",
         "scars": "",

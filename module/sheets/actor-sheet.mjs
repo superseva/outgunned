@@ -1,4 +1,5 @@
-import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
+import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
+import gsap from "../helpers/gsap/esm/all.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -46,11 +47,11 @@ export class OutgunnedActorSheet extends ActorSheet {
     //Prepare Items Enriched Descriptions
     const itemTypes = ['feat', 'weapon']
     let itemsEnrichedDescriptions = {};
-    for await(let itm of this.actor.items){
-        if(itemTypes.includes(itm.type)){
-            const descriptionRich = await TextEditor.enrichHTML(itm.system.description, {async:true})
-            itemsEnrichedDescriptions[itm._id] = descriptionRich;
-        }
+    for await (let itm of this.actor.items) {
+      if (itemTypes.includes(itm.type)) {
+        const descriptionRich = await TextEditor.enrichHTML(itm.system.description, { async: true })
+        itemsEnrichedDescriptions[itm._id] = descriptionRich;
+      }
     }
     context.itemsEnrichedDescriptions = itemsEnrichedDescriptions;
 
@@ -70,20 +71,20 @@ export class OutgunnedActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareCharacterData(context) { 
+  _prepareCharacterData(context) {
     // Grit bar   
-    const badGrits = context.system.grit.badSpots.split(",").map(function(item) {
+    const badGrits = context.system.grit.badSpots.split(",").map(function (item) {
       return item.trim();
     });
-    const hotGrits = context.system.grit.hotSpots.split(",").map(function(item) {
+    const hotGrits = context.system.grit.hotSpots.split(",").map(function (item) {
       return item.trim();
     });
     let gritBar = [];
-    for(let i=0; i<context.system.grit.max; i++){
+    for (let i = 0; i < context.system.grit.max; i++) {
       let grit = {
         index: i,
-        value: parseInt(i)+1,
-        img:this._getGritImage(parseInt(i)+1, hotGrits, badGrits, context.system.grit.value)
+        value: parseInt(i) + 1,
+        img: this._getGritImage(parseInt(i) + 1, hotGrits, badGrits, context.system.grit.value)
       }
       gritBar.push(grit)
     }
@@ -91,43 +92,56 @@ export class OutgunnedActorSheet extends ActorSheet {
 
     // Spotlight bar
     let spotlightBar = []
-    for(let i=0; i<context.system.spotlight.max; i++){
+    for (let i = 0; i < context.system.spotlight.max; i++) {
       spotlightBar.push({
         index: i,
-        value: parseInt(i)+1,
-        img: this._getSpotImage(parseInt(i)+1, context.system.spotlight.value)
+        value: parseInt(i) + 1,
+        img: this._getSpotImage(parseInt(i) + 1, context.system.spotlight.value)
       })
     }
     context.spotlightBar = spotlightBar;
 
     //Adrenaline Bar
     let adrenalineBar = []
-    for(let i=0; i<context.system.adrenaline.max; i++){
+    for (let i = 0; i < context.system.adrenaline.max; i++) {
       adrenalineBar.push({
         index: i,
-        value: parseInt(i)+1,
-        img: this._getSpotImage(parseInt(i)+1, context.system.adrenaline.value)
+        value: parseInt(i) + 1,
+        img: this._getSpotImage(parseInt(i) + 1, context.system.adrenaline.value)
       })
     }
     context.adrenalineBar = adrenalineBar;
+
+    // Roulette bar
+    let rouletteBar  = []
+    for (let i = 0; i < context.system.roulette.max; i++) {
+      const _value = parseInt(i) + 1;
+      rouletteBar.push({
+        index: i,
+        value: _value,
+        selected: _value <= context.system.roulette.value
+        //img: this._getSpotImage(parseInt(i) + 1, context.system.adrenaline.value)
+      })
+    }
+    context.rouletteBar = rouletteBar;
   }
 
-  _getGritImage(value, hots, bads, currentGrit){    
-    let numberMarker = value<=currentGrit? 1:0
+  _getGritImage(value, hots, bads, currentGrit) {
+    let numberMarker = value <= currentGrit ? 1 : 0
     let img = `systems/outgunned/assets/ui/grit-basic-${numberMarker}.webp`;
-    if(hots.includes(value.toString())){      
+    if (hots.includes(value.toString())) {
       img = `systems/outgunned/assets/ui/grit-hot-${numberMarker}.webp`;
     }
-    if(bads.includes(value.toString())){
+    if (bads.includes(value.toString())) {
       img = `systems/outgunned/assets/ui/grit-bad-${numberMarker}.webp`;
-    }   
+    }
     return img;
   }
 
-  _getSpotImage(value, currentSpotlight){
+  _getSpotImage(value, currentValue) {
     //console.warn(value, currentSpotlight)
-    let toggle = value <= currentSpotlight? 'on':'off'
-    let img =  `systems/outgunned/assets/ui/selector-circle-${toggle}.webp`; 
+    let toggle = value <= currentValue ? 'on' : 'off'
+    let img = `systems/outgunned/assets/ui/selector-circle-${toggle}.webp`;
     return img;
   }
 
@@ -145,7 +159,7 @@ export class OutgunnedActorSheet extends ActorSheet {
     const feats = [];
 
     // Iterate through items, allocating to containers
-    for await(let i of context.items) {
+    for await (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
       if (i.type === 'weapon') {
         weapons.push(i);
@@ -216,9 +230,16 @@ export class OutgunnedActorSheet extends ActorSheet {
     // Condition toggle
     html.find(".condition-checkbox").change(this._onConditionClick.bind(this));
 
+    // Roulette Clicks   
+    html.find(".roulette-roll-button").mousedown(this._onRouletteRoll.bind(this));
+
+    // Ammo toggle
+    html.find(".item-value").change(this._onItemChange.bind(this));
+
+
     // Active Effect management
     html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
-    
+
 
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
@@ -234,13 +255,13 @@ export class OutgunnedActorSheet extends ActorSheet {
     }
   }
 
-  async _onAttributeClick(event){
+  async _onAttributeClick(event) {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-    const _key = dataset.key    
+    const _key = dataset.key
 
-    if(!event.shiftKey && !event.altKey){
+    if (!event.shiftKey && !event.altKey) {
       $(element).toggleClass('selected')
       $(element).siblings().removeClass('selected');
       return;
@@ -250,26 +271,26 @@ export class OutgunnedActorSheet extends ActorSheet {
     let _update = {}
     // Increase by 1
     if (event.shiftKey) {
-      newValue = Math.min(parseInt(dataset.value)+1, 3)      
-      _update[_key] = newValue;  
+      newValue = Math.min(parseInt(dataset.value) + 1, 3)
+      _update[_key] = newValue;
     }
     // Decrease by 1
     if (event.altKey) {
-      newValue = Math.max(parseInt(dataset.value)-1, 1)      
-      _update[_key] = newValue;  
+      newValue = Math.max(parseInt(dataset.value) - 1, 1)
+      _update[_key] = newValue;
     }
     await this.actor.update(_update)
   }
 
-  async _onSkillClick(event){
+  async _onSkillClick(event) {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-    const _key = dataset.key;    
+    const _key = dataset.key;
 
-    if(!event.shiftKey && !event.altKey){
+    if (!event.shiftKey && !event.altKey) {
       $('.skill').removeClass('selected')
-      $(element).toggleClass('selected')      
+      $(element).toggleClass('selected')
       return;
     }
 
@@ -277,18 +298,18 @@ export class OutgunnedActorSheet extends ActorSheet {
     let _update = {}
     // Increase by 1
     if (event.shiftKey) {
-      newValue = Math.min(parseInt(dataset.value)+1, 3)      
-      _update[_key] = newValue;  
+      newValue = Math.min(parseInt(dataset.value) + 1, 3)
+      _update[_key] = newValue;
     }
     // Decrease by 1
     if (event.altKey) {
-      newValue = Math.max(parseInt(dataset.value)-1, 1)      
-      _update[_key] = newValue;  
+      newValue = Math.max(parseInt(dataset.value) - 1, 1)
+      _update[_key] = newValue;
     }
     await this.actor.update(_update)
   }
 
-  async _onRollButtonClick(event){
+  async _onRollButtonClick(event) {
     event.preventDefault();
     const element = event.currentTarget;
     const _attrs = $(element).parent().parent().find('.attributes')
@@ -300,34 +321,34 @@ export class OutgunnedActorSheet extends ActorSheet {
     const elSkill = $(_skls).find('.skill.selected')
     const skillValue = $(elSkill).data('value')
     const skillKey = $(elAttr).data('skill')
-    
+
     const rollName = $(elAttr).data('attribute') + " / " + $(elSkill).data('skill')
     let _total = parseInt(attrValue) + parseInt(skillValue);
 
     const modifierEl = $(element).parent().siblings().find('.modifier')
-    let _modifier = $(modifierEl).val() == ""? 0: $(modifierEl).val()
+    let _modifier = $(modifierEl).val() == "" ? 0 : $(modifierEl).val()
     _modifier = parseInt(_modifier);
 
     const gambleEl = $(element).parent().siblings().find('.gamble-checkbox');
     const isGamble = $(gambleEl).is(':checked');
     if (isGamble) {
-      _total+=1;
+      _total += 1;
       $(gambleEl).prop("checked", false)
     }
 
     // Conditions
     console.warn(this.actor.system.conditions)
     let conditionPenalty = 0;
-    if(attrKey!="" && skillKey!=""){
+    if (attrKey != "" && skillKey != "") {
       //let conditions = this.actor.system.conditions.map(c=>{c.active==true && c.attribute==attrKey})
       //console.warn(conditions)
       console.warn(`HAS CONDITION FOR ATTR: ${attrKey}`)
-      for(const c of Object.keys(this.actor.system.conditions)){
+      for (const c of Object.keys(this.actor.system.conditions)) {
         console.warn(c, attrKey)
         console.warn(this.actor.system.conditions[c].active)
-        if(this.actor.system.conditions[c].active && this.actor.system.conditions[c].attribute == attrKey){
-          _total-=1;
-         }
+        if (this.actor.system.conditions[c].active && this.actor.system.conditions[c].attribute == attrKey) {
+          _total -= 1;
+        }
       }
     }
     console.warn(`CONDITION PENALTY: ${conditionPenalty}`)
@@ -339,30 +360,92 @@ export class OutgunnedActorSheet extends ActorSheet {
 
   }
 
-  async _onConditionClick(event){
-    console.warn("Listen for  toggle all")
+  async _onConditionClick(event) {
+    // this is moved to preUpdate on Actor Document
     event.preventDefault();
     const element = event.currentTarget;
-    if($(element).data("key")==="broken"){
-      console.warn("BROKEN")
-    }
-    
   }
 
-  async _zeroGrit(event){
+  async _onRouletteRoll(event) {
     event.preventDefault();
-    await this.actor.update({"system.grit.value":0})
+    // escape if it is already spinning
+    if(gsap.isTweening(".roulette-roll-pointer", 'rotation'))
+      return false;
+    const _roll = await new Roll('1d6').evaluate({async: true});
+    const result = _roll.terms[0].results[0].result;
+    console.warn(result);
+    const _deg = ((360 / 6)*result) + 720;
+    //gsap.to(".roulette-roll-pointer", 2, {rotation:_deg, onComplete: console.log('finish'), onCompleteParams:[result] });
+    
+    await gsap.to(".roulette-roll-pointer", 2, {rotation:_deg, ease:"power3.inOut"}).then(() => this._onRuletteUpdate(result))
+
+    // if(parseInt(result) <= parseInt(this.actor.system.roulette.value)){
+    //   console.warn('YOU DIE')      
+    //   return;
+    // }else{
+    //   // DO THE INCREASE AND EXIT
+    //   if(parseInt(this.actor.system.roulette.value)< parseInt(this.actor.system.roulette.max)){
+    //     const _newValue = parseInt(this.actor.system.roulette.value)+1;
+    //     await this.actor.update({"system.roulette.value":_newValue})
+    //   }else{
+    //     // if roulette is already MAX you are ALREADY DEAD ??
+    //   }
+    // }
+    // let _value = parseInt(this.actor.system.roulette.value);
+    //  // handle right click
+    // _value = event.which === 3 ? Math.max(0,_value - 1) : Math.min(_value + 1, parseInt(this.actor.system.roulette.max))
+    // console.warn(_value)
+    // await this.actor.update({"system.roulette.value":_value})    
   }
 
-  async _onBarSelectorClick(event){
-    event.preventDefault();    
+  async _onRuletteUpdate(result){
+    if(parseInt(result) <= parseInt(this.actor.system.roulette.value)){
+      console.warn('YOU DIE')
+      gsap.to(".roulette-death", 0.7, {opacity:1,scale:2, rotation: 700, ease:"power4.out"});
+      gsap.to(".roulette-death", 0.5, {delay:2.5, opacity:0, ease:"power0.in"})
+      return;
+    }else{
+      // DO THE INCREASE AND EXIT
+      if(parseInt(this.actor.system.roulette.value)< parseInt(this.actor.system.roulette.max)){
+        const _newValue = parseInt(this.actor.system.roulette.value)+1;
+        await this.actor.update({"system.roulette.value":_newValue})
+      }else{
+        // if roulette is already MAX you are ALREADY DEAD ??
+      }
+    }
+  }
+
+  async _onItemChange(event) {
+    event.preventDefault();
+    const itemId = $(event.currentTarget).data("item-id");
+    let _item = this.actor.items.find((element) => element.id == itemId);
+    let valueToChange = $(event.currentTarget).data("key").toString();
+    let newValue = $(event.currentTarget).val();
+    // if (_item) {
+    //   await _item.update({ [valueToChange]: newValue });
+    // }
+    let _update = {}
+    _update["_id"] = itemId;
+    _update[valueToChange] = newValue
+    if (_item) {
+        await this.actor.updateEmbeddedDocuments("Item",[_update])
+    }
+  }
+
+  async _zeroGrit(event) {
+    event.preventDefault();
+    await this.actor.update({ "system.grit.value": 0 })
+  }
+
+  async _onBarSelectorClick(event) {
+    event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
     const updatePath = dataset.path;
     let currentValue = parseInt(dataset.selectValue);
     // handle right click
-    if(event.which === 3){
-      currentValue = currentValue-1
+    if (event.which === 3) {
+      currentValue = currentValue - 1
     }
     let update = {}
     update[updatePath] = currentValue;
@@ -393,7 +476,7 @@ export class OutgunnedActorSheet extends ActorSheet {
     delete itemData.system["type"];
 
     // Finally, create the item!
-    return await Item.create(itemData, {parent: this.actor});
+    return await Item.create(itemData, { parent: this.actor });
   }
 
   /**
