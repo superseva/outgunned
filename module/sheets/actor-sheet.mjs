@@ -374,45 +374,31 @@ export class OutgunnedActorSheet extends ActorSheet {
     const _roll = await new Roll('1d6').evaluate({async: true});
     const result = _roll.terms[0].results[0].result;
     console.warn(result);
-    const _deg = ((360 / 6)*result) + 720;
-    //gsap.to(".roulette-roll-pointer", 2, {rotation:_deg, onComplete: console.log('finish'), onCompleteParams:[result] });
-    
-    await gsap.to(".roulette-roll-pointer", 2, {rotation:_deg, ease:"power3.inOut"}).then(() => this._onRuletteUpdate(result))
-
-    // if(parseInt(result) <= parseInt(this.actor.system.roulette.value)){
-    //   console.warn('YOU DIE')      
-    //   return;
-    // }else{
-    //   // DO THE INCREASE AND EXIT
-    //   if(parseInt(this.actor.system.roulette.value)< parseInt(this.actor.system.roulette.max)){
-    //     const _newValue = parseInt(this.actor.system.roulette.value)+1;
-    //     await this.actor.update({"system.roulette.value":_newValue})
-    //   }else{
-    //     // if roulette is already MAX you are ALREADY DEAD ??
-    //   }
-    // }
-    // let _value = parseInt(this.actor.system.roulette.value);
-    //  // handle right click
-    // _value = event.which === 3 ? Math.max(0,_value - 1) : Math.min(_value + 1, parseInt(this.actor.system.roulette.max))
-    // console.warn(_value)
-    // await this.actor.update({"system.roulette.value":_value})    
+    const _deg = ((360 / 6)*result) + 720;    
+    await gsap.to(".roulette-roll-pointer", 2, {rotation:_deg, ease:"power3.inOut"}).then(() => this._onRuletteUpdate(result));
   }
 
   async _onRuletteUpdate(result){
-    if(parseInt(result) <= parseInt(this.actor.system.roulette.value)){
-      console.warn('YOU DIE')
+    let _messageContent = ""
+    if(parseInt(result) <= parseInt(this.actor.system.roulette.value)){      
       gsap.to(".roulette-death", 0.7, {opacity:1,scale:2, rotation: 700, ease:"power4.out"});
-      gsap.to(".roulette-death", 0.5, {delay:2.5, opacity:0, ease:"power0.in"})
+      gsap.to(".roulette-death", 0.5, {delay:2.5, opacity:0, ease:"power0.in"});
+      _messageContent = `<p>YOU DIE</p><p>Bullet No#${result} kills you</p>`;
+      ChatMessage.create({content:_messageContent})
       return;
     }else{
       // DO THE INCREASE AND EXIT
-      if(parseInt(this.actor.system.roulette.value)< parseInt(this.actor.system.roulette.max)){
+      if(parseInt(this.actor.system.roulette.value)< parseInt(this.actor.system.roulette.max)){  
         const _newValue = parseInt(this.actor.system.roulette.value)+1;
-        await this.actor.update({"system.roulette.value":_newValue})
+        await this.actor.update({"system.roulette.value":_newValue});
+        _messageContent = `<p>YOU DODGED THE BULLET!</p><p>... This Time !</p><p>${_newValue} bullet(s) in the cylinder!</p>`;
       }else{
         // if roulette is already MAX you are ALREADY DEAD ??
+        _messageContent = "Aren't you allready DEAD ?!?";
       }
+      ChatMessage.create({content:_messageContent})
     }
+    
   }
 
   async _onItemChange(event) {

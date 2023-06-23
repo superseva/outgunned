@@ -1,3 +1,5 @@
+import gsap from "../helpers/gsap/esm/all.js";
+import { TweenMax } from "../helpers/gsap/esm/gsap-core.js";
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
@@ -7,6 +9,10 @@ export class OutgunnedActor extends Actor {
   /** @override */
   _preUpdate(changed, options, user) {
     super._preUpdate(changed, options, user)
+
+    // kill all Tweens
+    //TweenMax.killAll();
+    TweenMax.killTweensOf('.roulette-roll-pointer')
     //console.warn(changed)
     //console.warn(changed?.system?.conditions?.broken?.active)
     if (changed?.system?.conditions?.broken?.active) {
