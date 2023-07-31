@@ -9,8 +9,7 @@
     // Actor partials.
     "systems/outgunned/templates/actor/parts/actor-feats.html",
     "systems/outgunned/templates/actor/parts/actor-weapons.html",
-    "systems/outgunned/templates/actor/parts/actor-items.html",
-    "systems/outgunned/templates/actor/parts/actor-spells.html",
+    "systems/outgunned/templates/actor/parts/actor-gear.html",
     "systems/outgunned/templates/actor/parts/actor-effects.html",
   ]);
 };

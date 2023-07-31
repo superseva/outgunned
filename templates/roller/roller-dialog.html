@@ -1,14 +1,10 @@
 <div>
-    <div>
-        <div>
-            <p>Attribute</p>
-        </div>
-        <div>
-            <p>Skill</p>
-        </div>
+    <div class="flex-group-center" style="margin-bottom: 0.4rem;">
+        <label style="font-size: 1.3rem;"><strong>DICE #</strong></label>
+        <input style="font-size: 1.3rem;" type="number" class="dice-total" name="total" value="{{total}}">
     </div>
-    <div>
-        <input type="number" class="dice-total" name="total" value="{{total}}">
-        <input type="number" class="dice-modifier" name="modifier" value="{{modifier}}">
+    <div class="flex-group-center" style="margin-bottom: 1rem;">
+        <label style="font-size: 0.7rem;"><e>Modifier</e></label>
+        <input type="number" class="dice-modifier" style="font-size: 0.7rem;" name="modifier" value="{{modifier}}">
     </div>
 </div>

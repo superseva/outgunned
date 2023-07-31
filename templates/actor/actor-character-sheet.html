@@ -239,6 +239,12 @@
             <div class="og-title"><h3>WEAPONS</h3></div>
             {{> systems/outgunned/templates/actor/parts/actor-weapons.html}}
           </div>
+
+          {{!-- GEAR --}}
+          <div class="gear">
+            <div class="og-title"><h3>GEAR</h3></div>
+            {{> systems/outgunned/templates/actor/parts/actor-gear.html}}
+          </div>
         </section>
 
       </section>
@@ -250,15 +256,7 @@
       {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
     </div>
 
-    {{!-- Owned Items Tab --}}
-    <div class="tab items" data-group="primary" data-tab="items">
-       {{> "systems/outgunned/templates/actor/parts/actor-items.html"}}
-    </div>
-
-    {{!-- Owned Spells Tab --}}
-    <div class="tab spells" data-group="primary" data-tab="spells">
-      {{> "systems/outgunned/templates/actor/parts/actor-spells.html"}}
-    </div>
+    
 
     {{!-- Active Effects Tab --}}
     <div class="tab effects flexcol" data-group="primary" data-tab="effects">

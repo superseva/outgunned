@@ -45,7 +45,7 @@ export class OutgunnedActorSheet extends ActorSheet {
     }
 
     //Prepare Items Enriched Descriptions
-    const itemTypes = ['feat', 'weapon']
+    const itemTypes = ['feat', 'weapon', 'gear']
     let itemsEnrichedDescriptions = {};
     for await (let itm of this.actor.items) {
       if (itemTypes.includes(itm.type)) {
