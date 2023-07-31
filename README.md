@@ -15,7 +15,9 @@ Select Attribute and Skill, add modifier or gamble, click ROLL button on the bot
 ### ATTRIBUTES AND SKILLS:
 Hold *SHIFT* to increase, hold *SHIFT+ALT* do decrease
 
-Any other "tracker" should be left mouse increase right mouse to decrease.
+Any other tracker:
+- left mouse increase
+- right mouse to decrease.
 
 Wheel Of Death maybe working ?!
 
