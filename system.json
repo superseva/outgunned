@@ -2,14 +2,14 @@
   "id": "outgunned",
   "title": "Outgunned",
   "description": "The Outgunned system for FoundryVTT!",
-  "version": "0.0.1",
+  "version": "0.0.11",
   "compatibility": {
     "minimum": 10,
     "verified": 10,
-    "maximum": 10
+    "maximum": 11
   },
   "authors": [{
-    "name": "Asacolips"
+    "name": "HappySteve"
   }],
   "esmodules": ["module/outgunned.mjs", "module/helpers/gsap/esm/all.js"],
   "styles": ["css/outgunned.css"],
