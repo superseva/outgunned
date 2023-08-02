@@ -10,6 +10,9 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   margin-bottom: 10px;
+  &.actor-sheet-header{
+    align-items: flex-start;
+  }
 
   .profile-img {
     flex: 0 0 100px;
@@ -21,11 +24,23 @@
     flex: 1;
   }
 
+  .char-infofield{
+    display: flex;
+    align-items: center;
+    gap:0.2em;
+    input{
+      background: none;
+      border: unset;
+      border-bottom: 1px solid #ad1c1c;
+    }
+  }
+
   h1.charname {
-    height: 50px;
-    padding: 0px;
-    margin: 5px 0;
-    border-bottom: 0;
+   // height: 50px;
+  //  padding: 0px;
+ //   margin: 5px 0;
+ //   border-bottom: 0;
+    font-size: 1.2em;
     input {
       width: 100%;
       height: 100%;
@@ -122,10 +137,10 @@
 .roll-button{
   background-color: $c-red;
   font-family: $font-thunder;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   color: white;
   border: none;
-  padding: 10%;
+  padding: 0.4em;
 }
 
 .condition{
@@ -134,7 +149,7 @@
   .condition-name, .condition-attribute{
     flex-grow: 3;
     font-family: $font-jost;
-    font-size: 0.8rem;
+    font-size: 0.7em;
     font-weight: 600;
     text-transform: uppercase;
   }

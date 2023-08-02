@@ -385,6 +385,10 @@
   margin-bottom: 10px;
 }
 
+.outgunned .sheet-header.actor-sheet-header {
+  align-items: flex-start;
+}
+
 .outgunned .sheet-header .profile-img {
   flex: 0 0 100px;
   height: 100px;
@@ -395,11 +399,20 @@
   flex: 1;
 }
 
+.outgunned .sheet-header .char-infofield {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.outgunned .sheet-header .char-infofield input {
+  background: none;
+  border: unset;
+  border-bottom: 1px solid #ad1c1c;
+}
+
 .outgunned .sheet-header h1.charname {
-  height: 50px;
-  padding: 0px;
-  margin: 5px 0;
-  border-bottom: 0;
+  font-size: 1.2em;
 }
 
 .outgunned .sheet-header h1.charname input {
@@ -491,10 +504,10 @@
 .outgunned .roll-button {
   background-color: #b1251a;
   font-family: "Thunder Nova", sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   color: white;
   border: none;
-  padding: 10%;
+  padding: 0.4em;
 }
 
 .outgunned .condition {
@@ -505,7 +518,7 @@
 .outgunned .condition .condition-name, .outgunned .condition .condition-attribute {
   flex-grow: 3;
   font-family: "Jost", sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.7em;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -678,7 +691,7 @@
 .outgunned .attributes .attribute {
   font-family: "barlow", sans-serif;
   font-weight: 600;
-  font-size: 1.2em;
+  font-size: 1em;
   text-transform: uppercase;
   margin-bottom: 0.2em;
   color: #b1251a;
@@ -687,7 +700,7 @@
 .outgunned .skills .skill {
   font-family: "barlow", sans-serif;
   font-weight: 600;
-  font-size: 0.9em;
+  font-size: 0.85em;
   text-transform: uppercase;
   margin-bottom: 0.1em;
 }
@@ -712,8 +725,7 @@
 }
 
 .outgunned .items-header {
-  height: 28px;
-  margin: 2px 0;
+  margin: 0;
   padding: 0;
   align-items: center;
   background: rgba(0, 0, 0, 0.05);
@@ -722,7 +734,7 @@
 }
 
 .outgunned .items-header > * {
-  font-size: 14px;
+  font-size: 0.7em;
   text-align: center;
 }
 
@@ -752,7 +764,7 @@
   flex: 2;
   margin: 0;
   overflow: hidden;
-  font-size: 1rem;
+  font-size: 0.8em;
   text-align: left;
   align-items: center;
   display: flex;
@@ -760,7 +772,7 @@
 
 .outgunned .items-list .item-name h3, .outgunned .items-list .item-name h4 {
   font-family: "barlow", sans-serif;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 600;
   margin: 0;
   white-space: nowrap;
@@ -798,7 +810,7 @@
 }
 
 .outgunned .items-list .items-header {
-  margin: 0;
+  margin: 2px 0;
   padding: 0;
   align-items: center;
   background: none;
@@ -807,7 +819,7 @@
 }
 
 .outgunned .items-list .items-header > * {
-  font-size: 0.7rem;
+  font-size: 0.7em;
   text-align: center;
   padding: 0;
   margin: 0;
@@ -827,21 +839,21 @@
   padding: 0 8px;
 }
 
-.outgunned .feat {
+.outgunned .feat, .outgunned .gear {
   padding: 0.5rem 1rem;
   margin-bottom: 0.5rem;
   border: solid 3px #b1251a;
 }
 
-.outgunned .feat .item-image, .outgunned .feat .item-name, .outgunned .feat .item-description, .outgunned .feat p {
+.outgunned .feat .item-image, .outgunned .feat .item-name, .outgunned .feat .item-description, .outgunned .feat p, .outgunned .gear .item-image, .outgunned .gear .item-name, .outgunned .gear .item-description, .outgunned .gear p {
   display: inline;
   vertical-align: bottom;
-  font-size: 1rem;
+  font-size: 1em;
 }
 
-.outgunned .feat h4 {
+.outgunned .feat h4, .outgunned .gear h4 {
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1em;
   display: inline;
   vertical-align: bottom;
 }
@@ -855,7 +867,7 @@
 }
 
 .outgunned .weapon .item-name {
-  font-size: 1.2rem;
+  font-size: 1em;
   font-weight: 600;
 }
 

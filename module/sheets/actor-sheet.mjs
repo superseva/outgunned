@@ -12,8 +12,8 @@ export class OutgunnedActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["outgunned", "sheet", "actor"],
       template: "systems/outgunned/templates/actor/actor-sheet.html",
-      width: 1050,
-      height: 750,
+      width: 900,
+      height: 650,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
     });
   }
