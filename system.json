@@ -2,7 +2,7 @@
   "id": "outgunned",
   "title": "Outgunned",
   "description": "The Outgunned system for FoundryVTT!",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "compatibility": {
     "minimum": 10,
     "verified": 10,
@@ -28,7 +28,7 @@
   "secondaryTokenAttribute": "power",
   "url": "",
   "manifest": "https://raw.githubusercontent.com/superseva/outgunned/main/system.json",
-  "download": "https://github.com/superseva/outgunned/releases/download/v0.0.11/outgunned.zip",
+  "download": "https://github.com/superseva/outgunned/releases/download/v0.0.12/outgunned.zip",
   "license": "LICENSE",
   "changelog": "CHANGELOG.md"
 }

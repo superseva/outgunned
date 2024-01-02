@@ -189,7 +189,7 @@
         "base",
         "physical"
       ],
-      "range":{"melee":false,"close":false,"medium":false,"long":false},
+      "range":{"melee":0,"close":0,"medium":0,"long":0},
       "ammoCount": 3
     },
     "gear":{

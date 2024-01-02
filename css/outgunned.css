@@ -875,10 +875,6 @@
   font-size: 1rem;
 }
 
-.outgunned .weapon .item-ranges .range-band {
-  margin: 0 0.5rem;
-}
-
 .outgunned .effects .item .effect-source,
 .outgunned .effects .item .effect-duration,
 .outgunned .effects .item .effect-controls {
