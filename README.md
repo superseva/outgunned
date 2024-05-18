@@ -1,3 +1,5 @@
+# The development of this has been abandoned for now
+
 # Outgunned
 Unofficial Outgunned RPG system for Foundry VTT
 
